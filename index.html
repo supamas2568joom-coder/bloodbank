@@ -1475,13 +1475,13 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
             { id: '8', code: 'KIT-003', name: 'ถุงขยะติดเชื้อสีแดง 30x40 นิ้ว', category: 'วัสดุงานบ้านงานครัว', stock: 40, unit: 'แพ็ค', min_reorder: 15, image_url: '' },
             { id: '9', code: 'KIT-004', name: 'สบู่เหลวล้างมือฆ่าเชื้อ 450 ml', category: 'วัสดุงานบ้านงานครัว', stock: 18, unit: 'ขวด', min_reorder: 8, image_url: '' },
             { id: '10', code: 'KIT-005', name: 'ผ้าเช็ดทำความสะอาดฆ่าเชื้อ', category: 'วัสดุงานบ้านงานครัว', stock: 3, unit: 'ห่อ', min_reorder: 10, image_url: '' },
-            { id: '11', code: 'MED-001', name: 'เข็มเจาะเก็บเลือดพร้อมสาย', category: 'น้ำยาและวัสดุทางการแพทย์', stock: 50, unit: 'ชุด', min_reorder: 20, image_url: '' },
-            { id: '12', code: 'MED-002', name: 'ถุงเก็บโลหิต Single Bag 450 ml', category: 'น้ำยาและวัสดุทางการแพทย์', stock: 12, unit: 'ถุง', min_reorder: 30, image_url: '' },
-            { id: '13', code: 'MED-003', name: 'หลอดเก็บตัวอย่างเลือด EDTA', category: 'น้ำยาและวัสดุทางการแพทย์', stock: 100, unit: 'หลอด', min_reorder: 40, image_url: '' },
-            { id: '14', code: 'MED-004', name: 'พลาสเตอร์ใสกันน้ำปิดแผลเจาะเลือด', category: 'น้ำยาและวัสดุทางการแพทย์', stock: 8, unit: 'กล่อง', min_reorder: 15, image_url: '' },
-            { id: '15', code: 'PHA-001', name: 'แอลกอฮอล์ 70% 450 ml', category: 'ยาและเวชภัณฑ์ที่ไม่ใช่ยา', stock: 25, unit: 'ขวด', min_reorder: 10, image_url: '' },
-            { id: '16', code: 'PHA-002', name: 'เบตาดีน 30 ml', category: 'ยาและเวชภัณฑ์ที่ไม่ใช่ยา', stock: 15, unit: 'ขวด', min_reorder: 5, image_url: '' },
-            { id: '17', code: 'PHA-003', name: 'สำลีก้อนชุบแอลกอฮอล์สำเร็จรูป', category: 'ยาและเวชภัณฑ์ที่ไม่ใช่ยา', stock: 8, unit: 'กระปุก', min_reorder: 15, image_url: '' }
+            { id: '11', code: 'MED-001', name: 'เข็มเจาะเก็บเลือดพร้อมสาย', category: 'น้ำยาและวัสดุทางการแพทย์', stock: 50, unit: 'ชุด', min_reorder: 20, exp_date: '2026-11-15', image_url: '' },
+            { id: '12', code: 'MED-002', name: 'ถุงเก็บโลหิต Single Bag 450 ml', category: 'น้ำยาและวัสดุทางการแพทย์', stock: 12, unit: 'ถุง', min_reorder: 30, exp_date: '2026-10-15', image_url: '' },
+            { id: '13', code: 'MED-003', name: 'หลอดเก็บตัวอย่างเลือด EDTA', category: 'น้ำยาและวัสดุทางการแพทย์', stock: 100, unit: 'หลอด', min_reorder: 40, exp_date: '2027-03-20', image_url: '' },
+            { id: '14', code: 'MED-004', name: 'พลาสเตอร์ใสกันน้ำปิดแผลเจาะเลือด', category: 'น้ำยาและวัสดุทางการแพทย์', stock: 8, unit: 'กล่อง', min_reorder: 15, exp_date: '2026-10-05', image_url: '' },
+            { id: '15', code: 'PHA-001', name: 'แอลกอฮอล์ 70% 450 ml', category: 'ยาและเวชภัณฑ์ที่ไม่ใช่ยา', stock: 25, unit: 'ขวด', min_reorder: 10, exp_date: '2027-05-10', image_url: '' },
+            { id: '16', code: 'PHA-002', name: 'เบตาดีน 30 ml', category: 'ยาและเวชภัณฑ์ที่ไม่ใช่ยา', stock: 15, unit: 'ขวด', min_reorder: 5, exp_date: '2027-01-30', image_url: '' },
+            { id: '17', code: 'PHA-003', name: 'สำลีก้อนชุบแอลกอฮอล์สำเร็จรูป', category: 'ยาและเวชภัณฑ์ที่ไม่ใช่ยา', stock: 8, unit: 'กระปุก', min_reorder: 15, exp_date: '2026-09-28', image_url: '' }
         ];
 
         const DEFAULT_USERS = [
@@ -1569,8 +1569,9 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
         });
 
         function initStorage() {
-            if (!localStorage.getItem('bb_inventory_items')) {
+            if (!localStorage.getItem('bb_inventory_items') || !localStorage.getItem('bb_items_v2')) {
                 localStorage.setItem('bb_inventory_items', JSON.stringify(DEFAULT_ITEMS));
+                localStorage.setItem('bb_items_v2', 'true');
             }
             if (!localStorage.getItem('bb_requisitions')) {
                 localStorage.setItem('bb_requisitions', JSON.stringify(DEFAULT_REQUISITIONS));
@@ -1626,7 +1627,23 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
                 throw new Error("ยังไม่ได้กำหนด LINE Access Token");
             }
 
-            // 1. Attempt LINE Messaging API Broadcast
+            // 1. Attempt via Local Node Server Proxy (/api/line-broadcast)
+            try {
+                const resProxy = await fetch("/api/line-broadcast", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ token, message: messageText })
+                });
+
+                if (resProxy.ok) {
+                    const dataProxy = await resProxy.json();
+                    return { success: true, method: 'LINE Broadcast Proxy', data: dataProxy };
+                }
+            } catch (errProxy) {
+                console.warn("Local LINE broadcast proxy attempt failed, trying direct fallback...", errProxy);
+            }
+
+            // 2. Direct LINE Messaging API Broadcast
             try {
                 const resMsg = await fetch("https://api.line.me/v2/bot/message/broadcast", {
                     method: "POST",
@@ -1640,54 +1657,27 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
                 });
 
                 if (resMsg.ok) {
-                    return { success: true, method: 'Messaging API' };
+                    return { success: true, method: 'Messaging API Direct' };
                 }
             } catch (errMsg) {
-                console.warn("Direct Messaging API fetch failed, trying Notify API proxies...", errMsg);
+                console.warn("Direct Messaging API fetch failed...", errMsg);
             }
 
-            // 2. Attempt LINE Notify via CORS Proxies
+            // 3. Fallback LINE Notify API via URLSearchParams / Proxy
             const encodedMsg = encodeURIComponent(messageText);
-            const proxies = [
-                `https://corsproxy.io/?url=https://notify-api.line.me/api/notify`,
-                `https://api.allorigins.win/raw?url=https://notify-api.line.me/api/notify`
-            ];
-
-            for (const proxyUrl of proxies) {
-                try {
-                    const resProxy = await fetch(proxyUrl, {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/x-www-form-urlencoded",
-                            "Authorization": `Bearer ${token}`
-                        },
-                        body: `message=${encodedMsg}`
-                    });
-
-                    if (resProxy.ok) {
-                        return { success: true, method: 'LINE Notify Proxy' };
-                    }
-                } catch (eProxy) {
-                    console.warn(`Proxy ${proxyUrl} failed:`, eProxy);
-                }
-            }
-
-            // 3. Direct LINE Notify No-CORS fallback
             try {
-                const params = new URLSearchParams();
-                params.append("message", messageText);
-                await fetch("https://notify-api.line.me/api/notify", {
+                await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent('https://notify-api.line.me/api/notify')}`, {
                     method: "POST",
-                    mode: "no-cors",
                     headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
                         "Authorization": `Bearer ${token}`
                     },
-                    body: params
+                    body: `message=${encodedMsg}`
                 });
-                return { success: true, method: 'LINE Notify Direct' };
-            } catch (eDirect) {
-                console.error("LINE Notify Direct failed:", eDirect);
-                throw eDirect;
+                return { success: true, method: 'LINE Notify Fallback' };
+            } catch (eFallback) {
+                console.error("All LINE notification methods failed:", eFallback);
+                throw eFallback;
             }
         }
 
