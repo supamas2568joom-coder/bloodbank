@@ -138,8 +138,14 @@
                     </div>
                 </div>
 
-                <!-- Database Status Indicator -->
-                <button onclick="openConfigModal()" title="ตั้งค่า Supabase" class="flex items-center gap-1 px-2 sm:px-3 py-1 sm:py-1.5 rounded-xl border text-xs font-medium transition" id="db-status-btn">
+                <!-- Home Page Button in Top Header -->
+                <button id="btn-nav-home" onclick="navigatePage('landing')" title="กลับหน้าแรก" class="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm font-medium rounded-xl transition cursor-pointer border border-slate-200 shadow-xs">
+                    <i data-lucide="home" class="w-4 h-4 text-slate-600"></i>
+                    <span class="hidden sm:inline">หน้าแรก</span>
+                </button>
+
+                <!-- Database Status Indicator (Hidden per user request) -->
+                <button onclick="openConfigModal()" title="ตั้งค่า Supabase" class="hidden items-center gap-1 px-2 sm:px-3 py-1 sm:py-1.5 rounded-xl border text-xs font-medium transition" id="db-status-btn">
                     <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                     <span class="hidden md:inline" id="db-status-text">โหมดจำลอง (Demo)</span>
                     <i data-lucide="database" class="w-3.5 h-3.5 text-slate-500"></i>
@@ -242,8 +248,8 @@
                             ควบคุมสต็อกคงเหลือแบบเรียลไทม์ ตรวจสอบและบันทึกการเบิกจ่ายของเจ้าหน้าที่ พร้อมแจ้งเตือนจุดสั่งซื้อเพิ่ม (Reorder Point) และส่งออกรายงานประจำเดือน
                         </p>
                         <div class="mt-6 flex flex-wrap items-center gap-3">
-                            <button onclick="navigatePage('login')" class="px-4 py-2.5 rounded-xl bg-black/20 hover:bg-black/30 text-white font-medium text-xs sm:text-sm backdrop-blur-sm border border-white/20 transition flex items-center gap-2">
-                                <i data-lucide="key" class="w-4 h-4"></i> เข้าสู่ระบบเจ้าหน้าที่
+                            <button id="hero-btn-dashboard" onclick="navigatePage('dashboard')" class="hidden px-5 py-2.5 rounded-xl bg-white hover:bg-rose-50 text-brand-700 font-bold text-xs sm:text-sm shadow-md transition items-center gap-2">
+                                <i data-lucide="layout-dashboard" class="w-4 h-4 text-brand-600"></i> เข้าสู่เมนูหลัก / แดชบอร์ด
                             </button>
                         </div>
                     </div>
@@ -598,8 +604,8 @@
                             <p class="text-xs text-slate-400" id="report-view-desc">เลือกเดือนไทยและปีงบประมาณเพื่อสรุปรายงานขนาด A4 แนวตั้ง</p>
                         </div>
 
-                        <!-- Report Mode Toggle Tabs -->
-                        <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-xl">
+                        <!-- Report Mode Toggle Tabs (Hidden per user request) -->
+                        <div class="hidden items-center gap-1 bg-slate-100 p-1 rounded-xl">
                             <button id="btn-report-monthly" onclick="setReportType('monthly')" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold transition bg-white text-brand-700 shadow-sm flex items-center gap-1.5">
                                 <i data-lucide="calendar" class="w-3.5 h-3.5"></i> รายงานประจำเดือน
                             </button>
@@ -620,10 +626,6 @@
                             <!-- ปุ่มส่งออก Excel -->
                             <button onclick="exportReportExcel()" class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-medium rounded-xl flex items-center gap-2 shadow-sm transition">
                                 <i data-lucide="file-spreadsheet" class="w-4 h-4"></i> ส่งออก Excel
-                            </button>
-                            <!-- ย้อนกลับหน้าหลัก -->
-                            <button onclick="navigatePage('landing')" class="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm font-medium rounded-xl flex items-center gap-1.5 transition">
-                                <i data-lucide="arrow-left" class="w-4 h-4"></i> หน้าหลัก
                             </button>
                         </div>
                     </div>
@@ -972,11 +974,11 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
             <form id="form-config" onsubmit="saveConfig(event)" class="space-y-3">
                 <div>
                     <label class="block text-xs font-semibold text-slate-700 mb-1">Supabase URL</label>
-                    <input type="url" id="cfg-url" placeholder="https://xyz.supabase.co" class="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 rounded-xl focus:border-brand-500">
+                    <input type="url" id="cfg-url" value="https://vagbqgkgkswujpwydpuv.supabase.co" placeholder="https://vagbqgkgkswujpwydpuv.supabase.co" class="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 rounded-xl focus:border-brand-500">
                 </div>
                 <div>
                     <label class="block text-xs font-semibold text-slate-700 mb-1">Supabase Anon Key</label>
-                    <input type="text" id="cfg-key" placeholder="eyJhbGciOi..." class="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 rounded-xl focus:border-brand-500">
+                    <input type="text" id="cfg-key" value="sb_publishable_48_glZEDAmm2_Yu9GSqGqA_pfoOD-tm" placeholder="sb_publishable_48_glZEDAmm2_Yu9GSqGqA_pfoOD-tm" class="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 rounded-xl focus:border-brand-500">
                 </div>
                 <div class="p-3 bg-slate-50 rounded-xl text-[11px] text-slate-500 leading-relaxed">
                     หากปล่อยว่างไว้ ระบบจะทำงานใน <strong class="text-brand-600">โหมดจำลอง (Demo Mode)</strong> โดยจัดเก็บข้อมูลในเบราว์เซอร์ LocalStorage อัตโนมัติ
@@ -1104,16 +1106,21 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
             state.users = JSON.parse(localStorage.getItem('bb_users'));
         }
 
+        const DEFAULT_SUPABASE_URL = 'https://vagbqgkgkswujpwydpuv.supabase.co';
+        const DEFAULT_SUPABASE_KEY = 'sb_publishable_48_glZEDAmm2_Yu9GSqGqA_pfoOD-tm';
+
         function initSupabaseClient() {
-            const url = localStorage.getItem('bb_sb_url');
-            const key = localStorage.getItem('bb_sb_key');
+            const url = localStorage.getItem('bb_sb_url') || DEFAULT_SUPABASE_URL;
+            const key = localStorage.getItem('bb_sb_key') || DEFAULT_SUPABASE_KEY;
 
             if (url && key && window.supabase) {
                 try {
                     state.supabase = window.supabase.createClient(url, key);
                     state.isDemoMode = false;
-                    document.getElementById('db-status-text').textContent = 'Supabase Online';
-                    document.getElementById('db-status-btn').classList.add('bg-emerald-50', 'text-emerald-700', 'border-emerald-200');
+                    const dbStatusText = document.getElementById('db-status-text');
+                    if (dbStatusText) dbStatusText.textContent = 'Supabase Online';
+                    const dbStatusBtn = document.getElementById('db-status-btn');
+                    if (dbStatusBtn) dbStatusBtn.classList.add('bg-emerald-50', 'text-emerald-700', 'border-emerald-200');
                     fetchDataFromSupabase();
                     return;
                 } catch (e) {
@@ -1123,8 +1130,10 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
             
             // Demo Mode
             state.isDemoMode = true;
-            document.getElementById('db-status-text').textContent = 'โหมดจำลอง (Demo)';
-            document.getElementById('db-status-btn').classList.add('bg-amber-50', 'text-amber-700', 'border-amber-200');
+            const dbStatusText = document.getElementById('db-status-text');
+            if (dbStatusText) dbStatusText.textContent = 'โหมดจำลอง (Demo)';
+            const dbStatusBtn = document.getElementById('db-status-btn');
+            if (dbStatusBtn) dbStatusBtn.classList.add('bg-amber-50', 'text-amber-700', 'border-amber-200');
         }
 
         async function fetchDataFromSupabase() {
@@ -1200,6 +1209,7 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
             const btnLogout = document.getElementById('btn-nav-logout');
             const adminSection = document.getElementById('sidebar-admin-section');
             const historyRoleNote = document.getElementById('req-history-role-note');
+            const heroBtnDash = document.getElementById('hero-btn-dashboard');
 
             if (state.currentUser) {
                 tag.classList.remove('hidden');
@@ -1207,6 +1217,11 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
                 btnLogin.classList.add('hidden');
                 btnLogout.classList.remove('hidden');
                 btnLogout.classList.add('flex');
+
+                if (heroBtnDash) {
+                    heroBtnDash.classList.remove('hidden');
+                    heroBtnDash.classList.add('flex');
+                }
 
                 document.getElementById('auth-fullname').textContent = state.currentUser.full_name;
                 document.getElementById('auth-avatar').textContent = state.currentUser.full_name.charAt(0);
@@ -1226,6 +1241,11 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
                 btnLogout.classList.add('hidden');
                 btnLogout.classList.remove('flex');
                 adminSection.classList.add('hidden');
+
+                if (heroBtnDash) {
+                    heroBtnDash.classList.add('hidden');
+                    heroBtnDash.classList.remove('flex');
+                }
             }
 
             updateSidebarVisibility();
@@ -1259,7 +1279,8 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
         }
 
         // --- NAVIGATION ---
-        function navigatePage(viewId) {
+        function navigatePage(viewId, highlightKey = null) {
+            const navKey = highlightKey || viewId;
             const views = ['landing', 'login', 'dashboard', 'inventory', 'requisition', 'report', 'users'];
             views.forEach(v => {
                 const el = document.getElementById(`view-${v}`);
@@ -1282,11 +1303,20 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
                 state.activeView = viewId;
             }
 
+            const btnHome = document.getElementById('btn-nav-home');
+            if (btnHome) {
+                if (viewId === 'landing') {
+                    btnHome.classList.add('hidden');
+                } else {
+                    btnHome.classList.remove('hidden');
+                }
+            }
+
             updateSidebarVisibility();
 
             // Update Active Sidebar Highlight (Desktop & Mobile)
             document.querySelectorAll('.side-nav-link').forEach(btn => {
-                if (btn.dataset.view === viewId) {
+                if (btn.dataset.view === navKey) {
                     btn.classList.add('bg-brand-50', 'text-brand-700', 'font-semibold');
                     btn.classList.remove('text-slate-600');
                 } else {
@@ -1980,7 +2010,8 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
         let currentReportMode = 'monthly';
 
         function openReportMode(mode) {
-            navigatePage('report');
+            const navKey = mode === 'annual' ? 'report-annual' : 'report';
+            navigatePage('report', navKey);
             setReportType(mode);
         }
 
@@ -2289,8 +2320,8 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
         }
 
         function openConfigModal() {
-            document.getElementById('cfg-url').value = localStorage.getItem('bb_sb_url') || '';
-            document.getElementById('cfg-key').value = localStorage.getItem('bb_sb_key') || '';
+            document.getElementById('cfg-url').value = localStorage.getItem('bb_sb_url') || DEFAULT_SUPABASE_URL;
+            document.getElementById('cfg-key').value = localStorage.getItem('bb_sb_key') || DEFAULT_SUPABASE_KEY;
             document.getElementById('modal-config').classList.remove('hidden');
         }
 
