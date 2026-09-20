@@ -211,22 +211,26 @@
         </aside>
 
         <!-- Mobile Bottom Navigation Bar (Smartphones <768px) -->
-        <nav id="mobile-bottom-nav" class="hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-slate-200 z-40 px-2 py-1.5 justify-around items-center shadow-lg md:hidden">
-            <button onclick="navigatePage('dashboard')" class="mobile-nav-btn flex flex-col items-center gap-0.5 text-[10px] font-medium text-slate-500 py-1 px-2.5 rounded-lg transition" data-view="dashboard">
+        <nav id="mobile-bottom-nav" class="hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-slate-200 z-40 px-1 py-1.5 justify-around items-center shadow-lg md:hidden">
+            <button onclick="navigatePage('dashboard')" class="mobile-nav-btn flex flex-col items-center gap-0.5 text-[10px] font-medium text-slate-500 py-1 px-1 rounded-lg transition" data-view="dashboard">
                 <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
                 <span>แดชบอร์ด</span>
             </button>
-            <button onclick="navigatePage('inventory')" class="mobile-nav-btn flex flex-col items-center gap-0.5 text-[10px] font-medium text-slate-500 py-1 px-2.5 rounded-lg transition" data-view="inventory">
+            <button onclick="navigatePage('inventory')" class="mobile-nav-btn flex flex-col items-center gap-0.5 text-[10px] font-medium text-slate-500 py-1 px-1 rounded-lg transition" data-view="inventory">
                 <i data-lucide="boxes" class="w-4 h-4"></i>
                 <span>จัดการคลัง</span>
             </button>
-            <button onclick="navigatePage('requisition')" class="mobile-nav-btn flex flex-col items-center gap-0.5 text-[10px] font-medium text-slate-500 py-1 px-2.5 rounded-lg transition" data-view="requisition">
+            <button onclick="navigatePage('requisition')" class="mobile-nav-btn flex flex-col items-center gap-0.5 text-[10px] font-medium text-slate-500 py-1 px-1 rounded-lg transition" data-view="requisition">
                 <i data-lucide="clipboard-pen-line" class="w-4 h-4"></i>
                 <span>เบิก-จ่าย</span>
             </button>
-            <button onclick="openReportMode('monthly')" class="mobile-nav-btn flex flex-col items-center gap-0.5 text-[10px] font-medium text-slate-500 py-1 px-2.5 rounded-lg transition" data-view="report">
+            <button onclick="openReportMode('monthly')" class="mobile-nav-btn flex flex-col items-center gap-0.5 text-[10px] font-medium text-slate-500 py-1 px-1 rounded-lg transition" data-view="report">
                 <i data-lucide="file-text" class="w-4 h-4"></i>
-                <span>รายงาน</span>
+                <span>รายงานเดือน</span>
+            </button>
+            <button onclick="openReportMode('annual')" class="mobile-nav-btn flex flex-col items-center gap-0.5 text-[10px] font-medium text-slate-500 py-1 px-1 rounded-lg transition" data-view="report-annual">
+                <i data-lucide="calendar-check" class="w-4 h-4"></i>
+                <span>รายงานปี</span>
             </button>
         </nav>
 
@@ -1326,8 +1330,7 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
             });
 
             document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
-                const activeMode = viewId.startsWith('report') ? 'report' : viewId;
-                if (btn.dataset.view === activeMode) {
+                if (btn.dataset.view === navKey) {
                     btn.classList.add('text-brand-600', 'font-bold');
                     btn.classList.remove('text-slate-500');
                 } else {
