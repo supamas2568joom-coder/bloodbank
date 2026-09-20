@@ -1425,7 +1425,17 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
                         <span class="text-[10px] text-emerald-600 font-semibold bg-emerald-50 px-2 py-0.5 rounded-md">ตั้งค่าเรียบร้อย</span>
                     </label>
                     <textarea id="line-token-input" rows="3" class="w-full text-xs font-mono p-3 border border-slate-200 rounded-xl focus:outline-none focus:border-[#06C755] bg-slate-50 leading-relaxed shrink-0 select-all" placeholder="วาง LINE Token..."></textarea>
-                    <p class="text-[11px] text-slate-400 mt-1">สามารถแก้ไข Token สำหรับ LINE Notify หรือ LINE Messaging API ได้ที่นี่</p>
+                    <p class="text-[11px] text-slate-400 mt-1">Token สำหรับ LINE Messaging API (Broadcast)</p>
+                </div>
+
+                <!-- Proxy / Webhook URL Input -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1.5 flex items-center justify-between">
+                        <span class="flex items-center gap-1.5"><i data-lucide="globe" class="w-4 h-4 text-blue-600"></i> Proxy Webhook URL (สำหรับ GitHub Pages):</span>
+                        <span class="text-[10px] text-slate-500 font-normal">ส่วนเสริม (Optional)</span>
+                    </label>
+                    <input type="url" id="line-webhook-input" class="w-full text-xs font-mono p-2.5 border border-slate-200 rounded-xl focus:outline-none focus:border-blue-500 bg-slate-50" placeholder="https://script.google.com/macros/s/.../exec">
+                    <p class="text-[11px] text-slate-400 mt-1">ใส่ Google Apps Script URL หรือ Proxy URL หากต้องการให้เว็บจริง (GitHub Pages) ส่งแจ้งเตือนได้</p>
                 </div>
 
                 <!-- Auto Notify Switch -->
@@ -1591,14 +1601,17 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
             state.receivings = JSON.parse(localStorage.getItem('bb_receivings'));
             state.users = JSON.parse(localStorage.getItem('bb_users'));
             state.lineToken = localStorage.getItem('bb_line_token') || DEFAULT_LINE_TOKEN;
+            state.lineWebhookUrl = localStorage.getItem('bb_line_webhook_url') || '';
             state.lineAutoNotify = localStorage.getItem('bb_line_auto_notify') !== 'false';
         }
 
         // --- LINE NOTIFICATION FUNCTIONS ---
         function openLineConfigModal() {
             const tokenInput = document.getElementById('line-token-input');
+            const webhookInput = document.getElementById('line-webhook-input');
             const autoCheck = document.getElementById('line-auto-notify-check');
             if (tokenInput) tokenInput.value = state.lineToken || DEFAULT_LINE_TOKEN;
+            if (webhookInput) webhookInput.value = state.lineWebhookUrl || '';
             if (autoCheck) autoCheck.checked = state.lineAutoNotify !== false;
             openModal('modal-line-config');
         }
@@ -1609,16 +1622,36 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
 
         function saveLineConfig() {
             const tokenInput = document.getElementById('line-token-input');
+            const webhookInput = document.getElementById('line-webhook-input');
             const autoCheck = document.getElementById('line-auto-notify-check');
             const newToken = tokenInput ? tokenInput.value.trim() : DEFAULT_LINE_TOKEN;
+            const newWebhook = webhookInput ? webhookInput.value.trim() : '';
             state.lineToken = newToken;
+            state.lineWebhookUrl = newWebhook;
             state.lineAutoNotify = autoCheck ? autoCheck.checked : true;
 
             localStorage.setItem('bb_line_token', state.lineToken);
+            localStorage.setItem('bb_line_webhook_url', state.lineWebhookUrl);
             localStorage.setItem('bb_line_auto_notify', state.lineAutoNotify);
 
             showToast("บันทึกการตั้งค่า LINE", "บันทึก Token และรูปแบบการแจ้งเตือนเรียบร้อยแล้ว", "emerald");
             closeModal('modal-line-config');
+        }
+
+        async function fetchWithTimeout(url, options = {}, timeoutMs = 3500) {
+            const controller = new AbortController();
+            const timer = setTimeout(() => controller.abort(), timeoutMs);
+            try {
+                const response = await fetch(url, {
+                    ...options,
+                    signal: controller.signal
+                });
+                clearTimeout(timer);
+                return response;
+            } catch (err) {
+                clearTimeout(timer);
+                throw err;
+            }
         }
 
         async function sendLineNotification(messageText, customToken = null) {
@@ -1627,13 +1660,29 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
                 throw new Error("ยังไม่ได้กำหนด LINE Access Token");
             }
 
-            // 1. Attempt via Local Node Server Proxy (/api/line-broadcast)
+            // 1. Custom Webhook / Apps Script Proxy (Recommended for GitHub Pages / External host)
+            if (state.lineWebhookUrl) {
+                try {
+                    const resWebhook = await fetchWithTimeout(state.lineWebhookUrl, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ token, message: messageText })
+                    }, 5000);
+                    if (resWebhook.ok) {
+                        return { success: true, method: 'Custom Webhook Proxy' };
+                    }
+                } catch (eWebhook) {
+                    console.warn("Custom webhook proxy failed:", eWebhook);
+                }
+            }
+
+            // 2. Local Node Server Proxy (/api/line-broadcast for localhost:8080)
             try {
-                const resProxy = await fetch("/api/line-broadcast", {
+                const resProxy = await fetchWithTimeout("/api/line-broadcast", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ token, message: messageText })
-                });
+                }, 3000);
 
                 if (resProxy.ok) {
                     const dataProxy = await resProxy.json();
@@ -1643,9 +1692,9 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
                 console.warn("Local LINE broadcast proxy attempt failed, trying direct fallback...", errProxy);
             }
 
-            // 2. Direct LINE Messaging API Broadcast
+            // 3. Direct LINE Messaging API Broadcast (Works on server / localhost / allowed origin)
             try {
-                const resMsg = await fetch("https://api.line.me/v2/bot/message/broadcast", {
+                const resMsg = await fetchWithTimeout("https://api.line.me/v2/bot/message/broadcast", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -1654,31 +1703,34 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
                     body: JSON.stringify({
                         messages: [{ type: "text", text: messageText }]
                     })
-                });
+                }, 3500);
 
                 if (resMsg.ok) {
                     return { success: true, method: 'Messaging API Direct' };
                 }
             } catch (errMsg) {
-                console.warn("Direct Messaging API fetch failed...", errMsg);
+                console.warn("Direct Messaging API fetch failed (CORS/Network)...", errMsg);
             }
 
-            // 3. Fallback LINE Notify API via URLSearchParams / Proxy
+            // 4. Fallback attempt via public CORS proxy
             const encodedMsg = encodeURIComponent(messageText);
             try {
-                await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent('https://notify-api.line.me/api/notify')}`, {
+                const resFallback = await fetchWithTimeout(`https://api.allorigins.win/raw?url=${encodeURIComponent('https://notify-api.line.me/api/notify')}`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/x-www-form-urlencoded",
                         "Authorization": `Bearer ${token}`
                     },
                     body: `message=${encodedMsg}`
-                });
-                return { success: true, method: 'LINE Notify Fallback' };
+                }, 3500);
+                if (resFallback.ok) {
+                    return { success: true, method: 'LINE Notify Fallback' };
+                }
             } catch (eFallback) {
                 console.error("All LINE notification methods failed:", eFallback);
-                throw eFallback;
             }
+
+            throw new Error("ไม่สามารถเชื่อมต่อ LINE API ได้ เนื่องจากเบราว์เซอร์บล็อก Cross-Origin Request (CORS) กรุณาใช้ Proxy Webhook หรือรันผ่าน Local Server");
         }
 
         function getExpiringItemsList(thresholdDays = 60) {
@@ -1751,7 +1803,7 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
                 showToast("ส่งการแจ้งเตือนสำเร็จ", `ส่งรายงานพัสดุใกล้หมดอายุ ${expiringItems.length} รายการไปยัง LINE เรียบร้อยแล้ว`, "emerald");
             } catch (err) {
                 console.error("Failed to send LINE alert:", err);
-                showToast("แจ้งเตือน LINE", `ดำเนินการส่งข้อมูลพัสดุใกล้หมดอายุไปยัง LINE เรียบร้อยแล้ว`, "emerald");
+                showToast("การส่ง LINE ขัดข้อง", err.message || "เบราว์เซอร์บล็อกการส่ง LINE (ติด CORS บนเว็บ static)", "amber");
             } finally {
                 hideLoader();
             }
