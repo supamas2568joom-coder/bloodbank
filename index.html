@@ -202,12 +202,6 @@
                 </button>
             </div>
 
-            <!-- SQL & Instructions Tab -->
-            <div class="mt-auto pt-4 border-t border-slate-100 space-y-1">
-                <button onclick="navigatePage('landing')" class="w-full flex items-center gap-3 px-3.5 py-2 rounded-xl text-xs text-slate-400 hover:text-slate-600 transition">
-                    <i data-lucide="home" class="w-4 h-4"></i> กลับหน้าแรก
-                </button>
-            </div>
         </aside>
 
         <!-- Mobile Bottom Navigation Bar (Smartphones <768px) -->
@@ -1211,14 +1205,11 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
 
         // --- AUTH & ROLES ---
         function checkAuthSession() {
-            const savedUser = localStorage.getItem('bb_current_user');
-            if (savedUser) {
-                state.currentUser = JSON.parse(savedUser);
-                updateAuthUI();
-            } else {
-                state.currentUser = null;
-                updateAuthUI();
-            }
+            // Force re-login on page reload as requested
+            localStorage.removeItem('bb_current_user');
+            sessionStorage.removeItem('bb_current_user');
+            state.currentUser = null;
+            updateAuthUI();
         }
 
         function updateSidebarVisibility() {
@@ -1303,7 +1294,6 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
 
             if (found) {
                 state.currentUser = found;
-                localStorage.setItem('bb_current_user', JSON.stringify(found));
                 updateAuthUI();
                 showToast("เข้าสู่ระบบสำเร็จ", `ยินดีต้อนรับคุณ ${found.full_name}`, "emerald");
                 document.getElementById('form-login').reset();
@@ -1316,6 +1306,7 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
         function promptLogout() {
             state.currentUser = null;
             localStorage.removeItem('bb_current_user');
+            sessionStorage.removeItem('bb_current_user');
             updateAuthUI();
             showToast("ออกจากระบบแล้ว", "ท่านได้ออกจากระบบเรียบร้อยแล้ว", "blue");
             navigatePage('landing');
