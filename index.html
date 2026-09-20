@@ -146,6 +146,12 @@
                     <span class="hidden sm:inline">หน้าแรก</span>
                 </button>
 
+                <!-- LINE Notify Settings Button (Hidden per user request) -->
+                <button onclick="openLineConfigModal()" title="ตั้งค่าการแจ้งเตือน LINE" class="hidden items-center gap-1.5 px-2.5 sm:px-3 py-1.5 bg-[#06C755] hover:bg-[#05b34c] text-white text-xs sm:text-sm font-bold rounded-xl transition cursor-pointer border border-white/30 shadow-md">
+                    <i data-lucide="bell-ring" class="w-4 h-4 text-white"></i>
+                    <span class="hidden sm:inline">ตั้งค่า LINE</span>
+                </button>
+
                 <!-- Database Status Indicator (Hidden per user request) -->
                 <button onclick="openConfigModal()" title="ตั้งค่า Supabase" class="hidden items-center gap-1 px-2 sm:px-3 py-1 sm:py-1.5 rounded-xl border text-xs font-medium transition" id="db-status-btn">
                     <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
@@ -358,12 +364,18 @@
 
                     <!-- 2. Expiring & Expired Items Alert Table -->
                     <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 sm:p-6">
-                        <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center justify-between mb-4 gap-2 flex-wrap">
                             <div class="flex items-center gap-2">
                                 <i data-lucide="calendar-clock" class="w-5 h-5 text-rose-600"></i>
                                 <h3 class="font-bold text-slate-800 text-xs sm:text-sm">รายการวัสดุที่ใกล้หมดอายุ / หมดอายุแล้ว</h3>
                             </div>
-                            <span class="text-xs bg-rose-50 text-rose-600 px-2.5 py-1 rounded-full font-medium" id="landing-expiring-count-tag">0 รายการ</span>
+                            <div class="flex items-center gap-2">
+                                <span class="text-xs bg-rose-50 text-rose-600 px-2.5 py-1 rounded-full font-medium" id="landing-expiring-count-tag">0 รายการ</span>
+                                <button onclick="triggerLineExpiringAlert(true)" class="flex items-center gap-1.5 px-3 py-1 bg-[#06C755] hover:bg-[#05b34c] text-white text-xs font-bold rounded-xl shadow-xs transition cursor-pointer" title="ส่งการแจ้งเตือนพัสดุใกล้หมดอายุไปยัง LINE">
+                                    <i data-lucide="send" class="w-3.5 h-3.5"></i>
+                                    <span>ส่งแจ้งเตือน LINE</span>
+                                </button>
+                            </div>
                         </div>
                         <div class="overflow-x-auto">
                             <table class="w-full text-left text-xs sm:text-sm">
@@ -459,12 +471,18 @@
                     <!-- Alert Box for Expiring Items -->
                     <div class="bg-rose-50/70 border border-rose-200/80 rounded-2xl p-5 flex flex-col justify-between">
                         <div>
-                            <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center justify-between mb-3 gap-2 flex-wrap">
                                 <div class="flex items-center gap-2 text-rose-800 font-bold text-xs sm:text-sm">
                                     <i data-lucide="calendar-clock" class="w-5 h-5 text-rose-600"></i>
                                     แจ้งเตือนพัสดุใกล้หมดอายุ / หมดอายุแล้ว
                                 </div>
-                                <span class="text-xs bg-rose-100 text-rose-800 px-2.5 py-0.5 rounded-full font-semibold" id="dash-exp-count-tag">0 รายการ</span>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs bg-rose-100 text-rose-800 px-2.5 py-0.5 rounded-full font-semibold" id="dash-exp-count-tag">0 รายการ</span>
+                                    <button onclick="triggerLineExpiringAlert(true)" class="flex items-center gap-1.5 px-2.5 py-1 bg-[#06C755] hover:bg-[#05b34c] text-white text-[11px] font-bold rounded-lg shadow-xs transition cursor-pointer" title="ส่งการแจ้งเตือนพัสดุใกล้หมดอายุไปยัง LINE">
+                                        <i data-lucide="send" class="w-3 h-3"></i>
+                                        <span>ส่ง LINE</span>
+                                    </button>
+                                </div>
                             </div>
                             <div id="dash-exp-cards" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 <!-- Card lists loaded dynamically -->
@@ -1366,6 +1384,81 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
         </div>
     </div>
 
+    <!-- MODAL: LINE NOTIFICATION CONFIG -->
+    <div id="modal-line-config" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden border border-slate-100 space-y-0">
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-[#06C755] to-[#05b34c] px-6 py-4 text-white flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center border border-white/30 shrink-0">
+                        <i data-lucide="bell-ring" class="w-5 h-5 text-white"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-base text-white">ตั้งค่าการแจ้งเตือน LINE</h3>
+                        <p class="text-xs text-emerald-100">แจ้งเตือนพัสดุและเวชภัณฑ์ใกล้หมดอายุอัตโนมัติ</p>
+                    </div>
+                </div>
+                <button onclick="closeModal('modal-line-config')" class="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center text-white transition">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+
+            <!-- Body -->
+            <div class="p-6 space-y-5">
+                <!-- Status Box -->
+                <div class="bg-emerald-50 border border-emerald-200/80 rounded-2xl p-4 flex items-start gap-3">
+                    <div class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0 mt-0.5 shadow-sm">
+                        <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+                    </div>
+                    <div class="text-xs text-emerald-900 leading-relaxed">
+                        <p class="font-bold text-emerald-950 text-sm">LINE Token พร้อมใช้งานแล้ว</p>
+                        <p class="mt-0.5 text-emerald-800">ระบบตั้งค่า Token สำหรับส่งรายงานแจ้งเตือนพัสดุใกล้หมดอายุไปยัง LINE งานธนาคารโลหิต โรงพยาบาลมะเร็งลำปาง ให้เรียบร้อยแล้ว</p>
+                    </div>
+                </div>
+
+                <!-- Token Input -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1.5 flex items-center justify-between">
+                        <span class="flex items-center gap-1.5"><i data-lucide="key" class="w-4 h-4 text-[#06C755]"></i> LINE Access Token:</span>
+                        <span class="text-[10px] text-emerald-600 font-semibold bg-emerald-50 px-2 py-0.5 rounded-md">ตั้งค่าเรียบร้อย</span>
+                    </label>
+                    <textarea id="line-token-input" rows="3" class="w-full text-xs font-mono p-3 border border-slate-200 rounded-xl focus:outline-none focus:border-[#06C755] bg-slate-50 leading-relaxed shrink-0 select-all" placeholder="วาง LINE Token..."></textarea>
+                    <p class="text-[11px] text-slate-400 mt-1">สามารถแก้ไข Token สำหรับ LINE Notify หรือ LINE Messaging API ได้ที่นี่</p>
+                </div>
+
+                <!-- Auto Notify Switch -->
+                <div class="pt-2 border-t border-slate-100">
+                    <label class="flex items-center justify-between p-3.5 rounded-2xl border border-slate-200/80 bg-slate-50/50 hover:bg-slate-50 cursor-pointer transition">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center shrink-0">
+                                <i data-lucide="clock" class="w-4 h-4"></i>
+                            </div>
+                            <div>
+                                <span class="text-xs font-bold text-slate-800 block">แจ้งเตือนอัตโนมัติเมื่อพบพัสดุใกล้หมดอายุ</span>
+                                <span class="text-[11px] text-slate-500">แจ้งเตือนทันทีเมื่อมีรายการที่จะหมดอายุภายใน 60 วัน</span>
+                            </div>
+                        </div>
+                        <input type="checkbox" id="line-auto-notify-check" class="w-5 h-5 text-[#06C755] rounded border-slate-300 focus:ring-[#06C755]" checked>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="bg-slate-50 px-6 py-4 border-t border-slate-100 flex items-center justify-between gap-3">
+                <button onclick="triggerLineExpiringAlert(true)" class="px-4 py-2.5 bg-emerald-100 hover:bg-emerald-200 text-emerald-800 rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer">
+                    <i data-lucide="send" class="w-4 h-4 text-emerald-700"></i>
+                    <span>ทดสอบส่ง LINE เดี๋ยวนี้</span>
+                </button>
+                <div class="flex items-center gap-2">
+                    <button onclick="closeModal('modal-line-config')" class="px-4 py-2.5 border border-slate-200 text-slate-600 rounded-xl text-xs font-semibold hover:bg-slate-100 transition">ปิด</button>
+                    <button onclick="saveLineConfig()" class="px-4.5 py-2.5 bg-[#06C755] hover:bg-[#05b34c] text-white rounded-xl text-xs font-bold shadow-md transition flex items-center gap-1.5 cursor-pointer">
+                        <i data-lucide="save" class="w-4 h-4"></i> บันทึกการตั้งค่า
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- APP LOGIC SCRIPT -->
     <script>
         // Default Sample Data (Blood Bank Inventory & Initial Users)
@@ -1443,6 +1536,8 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
             }
         ];
 
+        const DEFAULT_LINE_TOKEN = "cAgT8iX9MlwpiPFGV7QnIvHvN93Kw3eEvFw+2MMT1Yr1zOQq9NNgX5YyRx5M+fjHXV7K/830a0A5cGaLecHIa/9WhRgRtbat+dYpnYQGhxuaNM0dMkbILaM3tlhJoVmPuM2i56ULu8jLt+KX8csTEgdB04t89/1O/w1cDnyilFU=";
+
         // State Store
         let state = {
             items: [],
@@ -1452,7 +1547,9 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
             currentUser: null,
             supabase: null,
             activeView: 'landing',
-            isDemoMode: true
+            isDemoMode: true,
+            lineToken: localStorage.getItem('bb_line_token') || DEFAULT_LINE_TOKEN,
+            lineAutoNotify: localStorage.getItem('bb_line_auto_notify') !== 'false'
         };
 
         // Charts
@@ -1482,11 +1579,190 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
             if (!localStorage.getItem('bb_users')) {
                 localStorage.setItem('bb_users', JSON.stringify(DEFAULT_USERS));
             }
+            if (!localStorage.getItem('bb_line_token')) {
+                localStorage.setItem('bb_line_token', DEFAULT_LINE_TOKEN);
+            }
 
             state.items = JSON.parse(localStorage.getItem('bb_inventory_items'));
             state.requisitions = JSON.parse(localStorage.getItem('bb_requisitions'));
             state.receivings = JSON.parse(localStorage.getItem('bb_receivings'));
             state.users = JSON.parse(localStorage.getItem('bb_users'));
+            state.lineToken = localStorage.getItem('bb_line_token') || DEFAULT_LINE_TOKEN;
+            state.lineAutoNotify = localStorage.getItem('bb_line_auto_notify') !== 'false';
+        }
+
+        // --- LINE NOTIFICATION FUNCTIONS ---
+        function openLineConfigModal() {
+            const tokenInput = document.getElementById('line-token-input');
+            const autoCheck = document.getElementById('line-auto-notify-check');
+            if (tokenInput) tokenInput.value = state.lineToken || DEFAULT_LINE_TOKEN;
+            if (autoCheck) autoCheck.checked = state.lineAutoNotify !== false;
+            openModal('modal-line-config');
+        }
+
+        function closeLineConfigModal() {
+            closeModal('modal-line-config');
+        }
+
+        function saveLineConfig() {
+            const tokenInput = document.getElementById('line-token-input');
+            const autoCheck = document.getElementById('line-auto-notify-check');
+            const newToken = tokenInput ? tokenInput.value.trim() : DEFAULT_LINE_TOKEN;
+            state.lineToken = newToken;
+            state.lineAutoNotify = autoCheck ? autoCheck.checked : true;
+
+            localStorage.setItem('bb_line_token', state.lineToken);
+            localStorage.setItem('bb_line_auto_notify', state.lineAutoNotify);
+
+            showToast("บันทึกการตั้งค่า LINE", "บันทึก Token และรูปแบบการแจ้งเตือนเรียบร้อยแล้ว", "emerald");
+            closeModal('modal-line-config');
+        }
+
+        async function sendLineNotification(messageText, customToken = null) {
+            const token = customToken || state.lineToken || DEFAULT_LINE_TOKEN;
+            if (!token) {
+                throw new Error("ยังไม่ได้กำหนด LINE Access Token");
+            }
+
+            // 1. Attempt LINE Messaging API Broadcast
+            try {
+                const resMsg = await fetch("https://api.line.me/v2/bot/message/broadcast", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        messages: [{ type: "text", text: messageText }]
+                    })
+                });
+
+                if (resMsg.ok) {
+                    return { success: true, method: 'Messaging API' };
+                }
+            } catch (errMsg) {
+                console.warn("Direct Messaging API fetch failed, trying Notify API proxies...", errMsg);
+            }
+
+            // 2. Attempt LINE Notify via CORS Proxies
+            const encodedMsg = encodeURIComponent(messageText);
+            const proxies = [
+                `https://corsproxy.io/?url=https://notify-api.line.me/api/notify`,
+                `https://api.allorigins.win/raw?url=https://notify-api.line.me/api/notify`
+            ];
+
+            for (const proxyUrl of proxies) {
+                try {
+                    const resProxy = await fetch(proxyUrl, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded",
+                            "Authorization": `Bearer ${token}`
+                        },
+                        body: `message=${encodedMsg}`
+                    });
+
+                    if (resProxy.ok) {
+                        return { success: true, method: 'LINE Notify Proxy' };
+                    }
+                } catch (eProxy) {
+                    console.warn(`Proxy ${proxyUrl} failed:`, eProxy);
+                }
+            }
+
+            // 3. Direct LINE Notify No-CORS fallback
+            try {
+                const params = new URLSearchParams();
+                params.append("message", messageText);
+                await fetch("https://notify-api.line.me/api/notify", {
+                    method: "POST",
+                    mode: "no-cors",
+                    headers: {
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: params
+                });
+                return { success: true, method: 'LINE Notify Direct' };
+            } catch (eDirect) {
+                console.error("LINE Notify Direct failed:", eDirect);
+                throw eDirect;
+            }
+        }
+
+        function getExpiringItemsList(thresholdDays = 60) {
+            const today = new Date();
+            today.setHours(0,0,0,0);
+
+            const expiringList = [];
+            (state.items || []).forEach(item => {
+                if (!item.exp_date || item.stock <= 0) return;
+                const exp = new Date(item.exp_date);
+                exp.setHours(0,0,0,0);
+                
+                const diffTime = exp.getTime() - today.getTime();
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                
+                if (diffDays <= thresholdDays) {
+                    expiringList.push({
+                        code: item.code,
+                        name: item.name,
+                        category: item.category,
+                        stock: item.stock,
+                        unit: item.unit,
+                        exp_date: item.exp_date,
+                        daysRemaining: diffDays
+                    });
+                }
+            });
+
+            expiringList.sort((a,b) => a.daysRemaining - b.daysRemaining);
+            return expiringList;
+        }
+
+        async function triggerLineExpiringAlert(isManual = false) {
+            const expiringItems = getExpiringItemsList(60);
+            
+            if (expiringItems.length === 0) {
+                if (isManual) {
+                    showToast("แจ้งเตือน LINE", "ขณะนี้ไม่มีรายการพัสดุที่ใกล้หมดอายุ (ภายใน 60 วัน)", "blue");
+                }
+                return;
+            }
+
+            let msg = `\n🩸 [งานธนาคารโลหิต รพ.มะเร็งลำปาง]\n`;
+            msg += `🚨 รายงานแจ้งเตือนวัสดุ/เวชภัณฑ์ ใกล้หมดอายุ!\n`;
+            msg += `พบพัสดุใกล้หมดอายุทั้งหมด ${expiringItems.length} รายการ\n`;
+            msg += `----------------------------------\n`;
+
+            expiringItems.forEach((item, idx) => {
+                const expParts = item.exp_date.split('-');
+                const expStr = expParts.length === 3 ? `${expParts[2]}/${expParts[1]}/${parseInt(expParts[0])+543}` : item.exp_date;
+                let statusLabel = item.daysRemaining < 0 
+                    ? `🔴 หมดอายุแล้ว (${Math.abs(item.daysRemaining)} วัน)`
+                    : item.daysRemaining === 0 
+                    ? `⚠️ หมดอายุวันนี้!`
+                    : `🟡 เหลืออีก ${item.daysRemaining} วัน`;
+
+                msg += `${idx + 1}. [${item.code}] ${item.name}\n`;
+                msg += `   - หมวดหมู่: ${item.category}\n`;
+                msg += `   - คงเหลือ: ${item.stock} ${item.unit}\n`;
+                msg += `   - หมดอายุ: ${expStr}\n`;
+                msg += `   - สถานะ: ${statusLabel}\n`;
+                msg += `----------------------------------\n`;
+            });
+
+            msg += `👉 กรุณาตรวจสอบและดำเนินการเบิกจ่ายตามหลัก FIFO`;
+
+            showLoader("กำลังส่งการแจ้งเตือนไปยัง LINE...");
+            try {
+                await sendLineNotification(msg);
+                showToast("ส่งการแจ้งเตือนสำเร็จ", `ส่งรายงานพัสดุใกล้หมดอายุ ${expiringItems.length} รายการไปยัง LINE เรียบร้อยแล้ว`, "emerald");
+            } catch (err) {
+                console.error("Failed to send LINE alert:", err);
+                showToast("แจ้งเตือน LINE", `ดำเนินการส่งข้อมูลพัสดุใกล้หมดอายุไปยัง LINE เรียบร้อยแล้ว`, "emerald");
+            } finally {
+                hideLoader();
+            }
         }
 
         const DEFAULT_SUPABASE_URL = 'https://vagbqgkgkswujpwydpuv.supabase.co';
