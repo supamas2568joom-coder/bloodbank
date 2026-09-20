@@ -1142,21 +1142,60 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
 
         async function fetchDataFromSupabase() {
             if (!state.supabase) return;
-            showLoader('กำลังโหลดข้อมูลจาก Supabase...');
+            showLoader('กำลังเชื่อมต่อและดึงข้อมูลจาก Supabase...');
             try {
-                const { data: items } = await state.supabase.from('inventory').select('*');
-                if (items && items.length > 0) state.items = items;
+                // 1. Fetch Inventory Items
+                const { data: items, error: errItems } = await state.supabase.from('inventory').select('*');
+                if (!errItems && items !== null) {
+                    if (items.length > 0) {
+                        state.items = items;
+                    } else {
+                        // Seed default inventory items if table is empty in Supabase
+                        const itemsToInsert = DEFAULT_INVENTORY_ITEMS.map(({ id, ...rest }) => rest);
+                        const { data: seededItems } = await state.supabase.from('inventory').insert(itemsToInsert).select();
+                        if (seededItems && seededItems.length > 0) {
+                            state.items = seededItems;
+                        }
+                    }
+                }
 
-                const { data: reqs } = await state.supabase.from('requisitions').select('*');
-                if (reqs && reqs.length > 0) state.requisitions = reqs;
+                // 2. Fetch Requisitions
+                const { data: reqs, error: errReqs } = await state.supabase.from('requisitions').select('*');
+                if (!errReqs && reqs !== null) {
+                    if (reqs.length > 0) {
+                        state.requisitions = reqs;
+                    } else {
+                        const reqsToInsert = DEFAULT_REQUISITIONS.map(({ id, ...rest }) => rest);
+                        const { data: seededReqs } = await state.supabase.from('requisitions').insert(reqsToInsert).select();
+                        if (seededReqs && seededReqs.length > 0) {
+                            state.requisitions = seededReqs;
+                        }
+                    }
+                }
 
-                const { data: u } = await state.supabase.from('users').select('*');
-                if (u && u.length > 0) state.users = u;
+                // 3. Fetch Users
+                const { data: u, error: errUsers } = await state.supabase.from('users').select('*');
+                if (!errUsers && u !== null) {
+                    if (u.length > 0) {
+                        state.users = u;
+                    } else {
+                        const usersToInsert = DEFAULT_USERS.map(({ id, ...rest }) => rest);
+                        const { data: seededUsers } = await state.supabase.from('users').insert(usersToInsert).select();
+                        if (seededUsers && seededUsers.length > 0) {
+                            state.users = seededUsers;
+                        }
+                    }
+                }
+
+                // Cache latest data to LocalStorage
+                localStorage.setItem('bb_inventory_items', JSON.stringify(state.items));
+                localStorage.setItem('bb_requisitions', JSON.stringify(state.requisitions));
+                localStorage.setItem('bb_users', JSON.stringify(state.users));
 
                 refreshCurrentViewData();
             } catch (err) {
                 console.error("Supabase fetch error:", err);
-                showToast("แจ้งเตือน", "ดึงข้อมูลจาก Supabase ไม่สำเร็จ ใช้ข้อมูลจำลองแทน", "amber");
+                showToast("แจ้งเตือน", "ไม่สามารถเชื่อมต่อ Supabase ได้ ระบบจะใช้งานข้อมูลในเครื่องแทน", "amber");
             } finally {
                 hideLoader();
             }
