@@ -29,6 +29,7 @@
                             700: '#b91c1c',
                             800: '#991b1b',
                             900: '#7f1d1d',
+                            950: '#450a0a',
                         }
                     }
                 }
@@ -114,33 +115,34 @@
     </div>
 
     <!-- App Header Navbar -->
-    <header class="bg-white/95 backdrop-blur-md border-b border-slate-200 sticky top-0 z-30 px-3 sm:px-6 py-2.5 sm:py-3 shadow-xs">
+    <!-- App Header Navbar (Vibrant Blood Red) -->
+    <header class="bg-gradient-to-r from-[#991b1b] via-[#b91c1c] to-[#991b1b] text-white sticky top-0 z-30 px-3 sm:px-6 py-2.5 sm:py-3 shadow-lg border-b border-[#7f1d1d]">
         <div class="max-w-7xl mx-auto flex items-center justify-between gap-2 sm:gap-4">
             <!-- Brand Logo & Unit Title -->
             <div class="flex items-center gap-2 sm:gap-3 cursor-pointer min-w-0" onclick="navigatePage('landing')">
-                <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-rose-400 flex items-center justify-center text-white shadow-md shadow-brand-500/20 shrink-0">
-                    <i data-lucide="droplet" class="w-4 h-4 sm:w-6 sm:h-6 fill-current"></i>
+                <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-white p-0.5 shadow-md shrink-0 border border-white/40 flex items-center justify-center overflow-hidden">
+                    <img src="./logo.png" alt="โรงพยาบาลมะเร็งลำปาง" class="w-full h-full object-contain rounded-full">
                 </div>
                 <div class="min-w-0">
-                    <h1 class="text-xs sm:text-base md:text-lg font-bold text-slate-800 leading-tight truncate sm:whitespace-normal">ระบบคลังพัสดุงานธนาคารโลหิต โรงพยาบาลมะเร็งลำปาง</h1>
-                    <p class="hidden sm:block text-[10px] sm:text-xs text-slate-400 font-normal truncate max-w-[280px] md:max-w-none">วัสดุสำนักงาน, วัสดุงานบ้านงานครัว, น้ำยาและวัสดุทางการแพทย์, ยาและเวชภัณฑ์ที่ไม่ใช่ยา</p>
+                    <h1 class="text-xs sm:text-base md:text-lg font-bold text-white leading-tight truncate sm:whitespace-normal">ระบบคลังพัสดุงานธนาคารโลหิต โรงพยาบาลมะเร็งลำปาง</h1>
+                    <p class="hidden sm:block text-[10px] sm:text-xs text-rose-100/90 font-normal truncate max-w-[280px] md:max-w-none">วัสดุสำนักงาน, วัสดุงานบ้านงานครัว, น้ำยาและวัสดุทางการแพทย์, ยาและเวชภัณฑ์ที่ไม่ใช่ยา</p>
                 </div>
             </div>
 
             <!-- Header Right Menu -->
             <div class="flex items-center gap-1.5 sm:gap-3 shrink-0">
                 <!-- User Profile Display -->
-                <div id="auth-user-tag" class="hidden items-center gap-1.5 sm:gap-2 bg-slate-50 border border-slate-200 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full">
-                    <div class="w-6 h-6 rounded-full bg-brand-600 text-white flex items-center justify-center text-xs font-semibold shrink-0" id="auth-avatar">U</div>
+                <div id="auth-user-tag" class="hidden items-center gap-1.5 sm:gap-2 bg-white/15 border border-white/30 backdrop-blur-md px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-white">
+                    <div class="w-6 h-6 rounded-full bg-white text-[#b91c1c] flex items-center justify-center text-xs font-extrabold shrink-0 shadow-xs" id="auth-avatar">U</div>
                     <div class="text-left hidden sm:block">
-                        <div class="text-xs font-semibold text-slate-700 leading-none" id="auth-fullname">User</div>
-                        <div class="text-[10px] text-slate-400" id="auth-badge-role">Staff</div>
+                        <div class="text-xs font-bold text-white leading-none" id="auth-fullname">User</div>
+                        <div class="text-[10px] text-rose-100" id="auth-badge-role">Staff</div>
                     </div>
                 </div>
 
                 <!-- Home Page Button in Top Header -->
-                <button id="btn-nav-home" onclick="navigatePage('landing')" title="กลับหน้าแรก" class="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm font-medium rounded-xl transition cursor-pointer border border-slate-200 shadow-xs">
-                    <i data-lucide="home" class="w-4 h-4 text-slate-600"></i>
+                <button id="btn-nav-home" onclick="navigatePage('landing')" title="กลับหน้าแรก" class="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 bg-white/20 hover:bg-white/30 text-white text-xs sm:text-sm font-semibold rounded-xl transition cursor-pointer border border-white/30 shadow-xs">
+                    <i data-lucide="home" class="w-4 h-4 text-white"></i>
                     <span class="hidden sm:inline">หน้าแรก</span>
                 </button>
 
@@ -151,13 +153,9 @@
                     <i data-lucide="database" class="w-3.5 h-3.5 text-slate-500"></i>
                 </button>
 
-                <!-- Login / Logout Buttons -->
-                <button id="btn-nav-login" onclick="navigatePage('login')" class="flex items-center gap-1.5 px-3 py-1.5 bg-brand-600 hover:bg-brand-700 text-white text-xs sm:text-sm font-medium rounded-xl shadow-sm transition">
-                    <i data-lucide="log-in" class="w-4 h-4"></i>
-                    <span>เข้าสู่ระบบ</span>
-                </button>
-                <button id="btn-nav-logout" onclick="promptLogout()" class="hidden items-center gap-1.5 px-2.5 sm:px-3 py-1.5 bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs sm:text-sm font-semibold rounded-xl transition cursor-pointer border border-rose-200 shadow-sm">
-                    <i data-lucide="power" class="w-4 h-4 text-rose-600"></i>
+                <!-- Logout Button -->
+                <button id="btn-nav-logout" onclick="promptLogout()" class="hidden items-center gap-1.5 px-2.5 sm:px-3 py-1.5 bg-black/20 hover:bg-black/30 text-white text-xs sm:text-sm font-semibold rounded-xl transition cursor-pointer border border-white/20 shadow-sm">
+                    <i data-lucide="power" class="w-4 h-4 text-white"></i>
                     <span class="hidden sm:inline">ออกจากระบบ</span>
                 </button>
             </div>
@@ -167,36 +165,40 @@
     <!-- App Main Body Layout -->
     <div class="flex-1 flex max-w-7xl w-full mx-auto pb-20 md:pb-8">
 
-        <!-- Desktop Sidebar Menu (Hidden on mobile <768px, shown on desktop >=768px) -->
-        <aside id="desktop-sidebar" class="hidden md:flex flex-col w-64 border-r border-slate-200 p-4 gap-1.5 bg-white shrink-0 min-h-[calc(100vh-4rem)]">
-            <div class="text-[11px] font-semibold text-slate-400 px-3 mb-1 uppercase tracking-wider">เมนูหลัก</div>
-            <button onclick="navigatePage('dashboard')" class="side-nav-link flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-medium text-slate-600 hover:bg-slate-100 transition text-left" data-view="dashboard">
+        <!-- Desktop Sidebar Menu (Vibrant Blood Red) -->
+        <aside id="desktop-sidebar" class="hidden md:flex flex-col w-64 border-r border-[#7f1d1d]/40 p-4 gap-1.5 bg-gradient-to-b from-[#b91c1c] via-[#991b1b] to-[#7f1d1d] text-white shrink-0 min-h-[calc(100vh-4rem)] shadow-lg">
+            <div class="text-[11px] font-bold text-rose-100/90 px-3 mb-1 uppercase tracking-wider">เมนูหลัก</div>
+            <button onclick="navigatePage('dashboard')" class="side-nav-link flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-medium text-rose-100 hover:bg-white/15 hover:text-white transition text-left" data-view="dashboard">
                 <i data-lucide="layout-dashboard" class="w-4 h-4 shrink-0"></i>
                 <span class="text-left leading-tight">แดชบอร์ดภาพรวม</span>
             </button>
-            <button onclick="navigatePage('inventory')" class="side-nav-link flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-medium text-slate-600 hover:bg-slate-100 transition text-left" data-view="inventory">
+            <button onclick="navigatePage('inventory')" class="side-nav-link flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-medium text-rose-100 hover:bg-white/15 hover:text-white transition text-left" data-view="inventory">
                 <i data-lucide="boxes" class="w-4 h-4 shrink-0"></i>
                 <span class="text-left leading-tight">จัดการคลังพัสดุ</span>
             </button>
-            <button onclick="navigatePage('requisition')" class="side-nav-link flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-medium text-slate-600 hover:bg-slate-100 transition text-left" data-view="requisition">
+            <button onclick="navigatePage('requisition')" class="side-nav-link flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-medium text-rose-100 hover:bg-white/15 hover:text-white transition text-left" data-view="requisition">
                 <i data-lucide="clipboard-pen-line" class="w-4 h-4 shrink-0"></i>
                 <span class="text-left leading-tight">บันทึกเบิก-จ่าย</span>
             </button>
-            <button onclick="openReportMode('monthly')" class="side-nav-link flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-medium text-slate-600 hover:bg-slate-100 transition text-left" data-view="report">
+            <button onclick="navigatePage('receiving')" class="side-nav-link flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-medium text-rose-100 hover:bg-white/15 hover:text-white transition text-left" data-view="receiving">
+                <i data-lucide="package-check" class="w-4 h-4 shrink-0"></i>
+                <span class="text-left leading-tight">บันทึกตรวจรับพัสดุ</span>
+            </button>
+            <button onclick="openReportMode('monthly')" class="side-nav-link flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-medium text-rose-100 hover:bg-white/15 hover:text-white transition text-left" data-view="report">
                 <i data-lucide="file-text" class="w-4 h-4 shrink-0"></i>
                 <span class="text-left leading-tight">สรุปรายงานประจำเดือน</span>
             </button>
-            <button onclick="openReportMode('annual')" class="side-nav-link flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-medium text-slate-600 hover:bg-slate-100 transition text-left" data-view="report-annual">
+            <button onclick="openReportMode('annual')" class="side-nav-link flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-medium text-rose-100 hover:bg-white/15 hover:text-white transition text-left" data-view="report-annual">
                 <i data-lucide="calendar-check" class="w-4 h-4 shrink-0"></i>
                 <span class="text-left leading-tight">สรุปรายงานประจำปีงบประมาณ</span>
             </button>
 
             <!-- Admin Section -->
-            <div id="sidebar-admin-section" class="hidden mt-4 pt-4 border-t border-slate-100">
-                <div class="text-[11px] font-semibold text-brand-600 px-3 mb-2 uppercase tracking-wider flex items-center gap-1.5">
-                    <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> เมนูผู้ดูแลระบบ (Admin)
+            <div id="sidebar-admin-section" class="hidden mt-4 pt-4 border-t border-rose-200/20">
+                <div class="text-[11px] font-bold text-rose-100 px-3 mb-2 uppercase tracking-wider flex items-center gap-1.5">
+                    <i data-lucide="shield-check" class="w-3.5 h-3.5 text-rose-200"></i> เมนูผู้ดูแลระบบ (Admin)
                 </div>
-                <button onclick="navigatePage('users')" class="side-nav-link flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-medium text-slate-600 hover:bg-slate-100 transition text-left" data-view="users">
+                <button onclick="navigatePage('users')" class="side-nav-link flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-medium text-rose-100 hover:bg-white/15 hover:text-white transition text-left" data-view="users">
                     <i data-lucide="users" class="w-4 h-4 shrink-0"></i>
                     <span class="text-left leading-tight">จัดการสิทธิ์ผู้ใช้งาน</span>
                 </button>
@@ -204,25 +206,29 @@
 
         </aside>
 
-        <!-- Mobile Bottom Navigation Bar (Smartphones <768px) -->
-        <nav id="mobile-bottom-nav" class="hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-slate-200 z-40 px-1 py-1.5 justify-around items-center shadow-lg md:hidden">
-            <button onclick="navigatePage('dashboard')" class="mobile-nav-btn flex flex-col items-center gap-0.5 text-[10px] font-medium text-slate-500 py-1 px-1 rounded-lg transition" data-view="dashboard">
+        <!-- Mobile Bottom Navigation Bar (Vibrant Blood Red) -->
+        <nav id="mobile-bottom-nav" class="hidden fixed bottom-0 left-0 right-0 bg-[#b91c1c]/95 backdrop-blur-md border-t border-[#7f1d1d] z-40 px-1 py-1.5 justify-around items-center shadow-lg md:hidden text-white">
+            <button onclick="navigatePage('dashboard')" class="mobile-nav-btn flex flex-col items-center gap-0.5 text-[10px] font-medium text-rose-200/70 py-1 px-1 rounded-lg transition" data-view="dashboard">
                 <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
                 <span>แดชบอร์ด</span>
             </button>
-            <button onclick="navigatePage('inventory')" class="mobile-nav-btn flex flex-col items-center gap-0.5 text-[10px] font-medium text-slate-500 py-1 px-1 rounded-lg transition" data-view="inventory">
+            <button onclick="navigatePage('inventory')" class="mobile-nav-btn flex flex-col items-center gap-0.5 text-[10px] font-medium text-rose-200/70 py-1 px-1 rounded-lg transition" data-view="inventory">
                 <i data-lucide="boxes" class="w-4 h-4"></i>
                 <span>จัดการคลัง</span>
             </button>
-            <button onclick="navigatePage('requisition')" class="mobile-nav-btn flex flex-col items-center gap-0.5 text-[10px] font-medium text-slate-500 py-1 px-1 rounded-lg transition" data-view="requisition">
+            <button onclick="navigatePage('receiving')" class="mobile-nav-btn flex flex-col items-center gap-0.5 text-[10px] font-medium text-rose-200/70 py-1 px-1 rounded-lg transition" data-view="receiving">
+                <i data-lucide="package-check" class="w-4 h-4"></i>
+                <span>ตรวจรับ</span>
+            </button>
+            <button onclick="navigatePage('requisition')" class="mobile-nav-btn flex flex-col items-center gap-0.5 text-[10px] font-medium text-rose-200/70 py-1 px-1 rounded-lg transition" data-view="requisition">
                 <i data-lucide="clipboard-pen-line" class="w-4 h-4"></i>
                 <span>เบิก-จ่าย</span>
             </button>
-            <button onclick="openReportMode('monthly')" class="mobile-nav-btn flex flex-col items-center gap-0.5 text-[10px] font-medium text-slate-500 py-1 px-1 rounded-lg transition" data-view="report">
+            <button onclick="openReportMode('monthly')" class="mobile-nav-btn flex flex-col items-center gap-0.5 text-[10px] font-medium text-rose-200/70 py-1 px-1 rounded-lg transition" data-view="report">
                 <i data-lucide="file-text" class="w-4 h-4"></i>
-                <span>รายงานเดือน</span>
+                <span>รายงาน</span>
             </button>
-            <button onclick="openReportMode('annual')" class="mobile-nav-btn flex flex-col items-center gap-0.5 text-[10px] font-medium text-slate-500 py-1 px-1 rounded-lg transition" data-view="report-annual">
+            <button onclick="openReportMode('annual')" class="mobile-nav-btn flex flex-col items-center gap-0.5 text-[10px] font-medium text-rose-200/70 py-1 px-1 rounded-lg transition" data-view="report-annual">
                 <i data-lucide="calendar-check" class="w-4 h-4"></i>
                 <span>รายงานปี</span>
             </button>
@@ -234,28 +240,28 @@
             <!-- 1. VIEW: LANDING PAGE -->
             <section id="view-landing" class="space-y-6">
                 <!-- Hero Banner -->
-                <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand-700 via-brand-600 to-rose-500 text-white p-6 sm:p-10 shadow-xl">
-                    <div class="relative z-10 max-w-4xl">
-                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-white/20 backdrop-blur-md mb-3">
-                            <i data-lucide="shield" class="w-3.5 h-3.5"></i> งานธนาคารโลหิต โรงพยาบาลมะเร็งลำปาง
-                        </span>
-                        <h2 class="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-extrabold tracking-tight leading-tight sm:whitespace-nowrap">
+                <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#991b1b] via-[#b91c1c] to-[#991b1b] text-white px-5 sm:px-8 py-4 sm:py-5 shadow-lg flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div class="relative z-10 max-w-3xl">
+                        <h2 class="text-base sm:text-xl md:text-2xl font-extrabold tracking-tight leading-tight text-white">
                             ระบบควบคุมวัสดุและเวชภัณฑ์ งานธนาคารโลหิต
                         </h2>
-                        <p class="mt-2.5 text-xs sm:text-sm text-rose-100 font-light leading-relaxed">
+                        <p class="mt-1 text-xs text-rose-100/90 font-normal leading-relaxed">
                             ควบคุมสต็อกคงเหลือแบบเรียลไทม์ ตรวจสอบและบันทึกการเบิกจ่ายของเจ้าหน้าที่ พร้อมแจ้งเตือนจุดสั่งซื้อเพิ่ม (Reorder Point) และส่งออกรายงานประจำเดือน
                         </p>
-                        <div class="mt-6 flex flex-wrap items-center gap-3">
-                            <button id="hero-btn-dashboard" onclick="navigatePage('dashboard')" class="hidden px-5 py-2.5 rounded-xl bg-white hover:bg-rose-50 text-brand-700 font-bold text-xs sm:text-sm shadow-md transition items-center gap-2">
-                                <i data-lucide="layout-dashboard" class="w-4 h-4 text-brand-600"></i> เข้าสู่เมนูหลัก / แดชบอร์ด
-                            </button>
-                        </div>
                     </div>
-                    <div class="absolute -right-8 -bottom-8 w-64 h-64 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
+
+                    <!-- Right Side Action Button -->
+                    <div class="relative z-10 shrink-0 flex items-center">
+                        <button id="hero-btn-dashboard" onclick="navigatePage('dashboard')" class="flex px-4 py-2.5 rounded-xl bg-white hover:bg-rose-50 text-[#b91c1c] font-bold text-xs sm:text-sm shadow-md transition items-center gap-2 cursor-pointer border border-white/40">
+                            <i data-lucide="layout-dashboard" class="w-4 h-4 text-[#b91c1c]"></i>
+                            <span>เข้าสู่เมนูหลัก / แดชบอร์ด</span>
+                        </button>
+                    </div>
+                    <div class="absolute -right-8 -bottom-8 w-48 h-48 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
                 </div>
 
                 <!-- Landing Overview Stats Grid -->
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
+                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3 sm:gap-4">
                     <div class="bg-white p-3.5 sm:p-4 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-3">
                         <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
                             <i data-lucide="box" class="w-5 h-5"></i>
@@ -272,6 +278,15 @@
                         <div>
                             <p class="text-[10px] sm:text-[11px] font-medium text-slate-400">ใกล้หมดสต็อก</p>
                             <h3 class="text-base sm:text-xl font-bold text-amber-600" id="stat-landing-low">0</h3>
+                        </div>
+                    </div>
+                    <div class="bg-white p-3.5 sm:p-4 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center shrink-0">
+                            <i data-lucide="calendar-clock" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <p class="text-[10px] sm:text-[11px] font-medium text-slate-400">ใกล้หมดอายุ</p>
+                            <h3 class="text-base sm:text-xl font-bold text-rose-600" id="stat-landing-expiring">0</h3>
                         </div>
                     </div>
                     <div class="bg-white p-3.5 sm:p-4 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-3">
@@ -297,7 +312,7 @@
                             <i data-lucide="flask-conical" class="w-5 h-5"></i>
                         </div>
                         <div>
-                            <p class="text-[10px] sm:text-[11px] font-medium text-slate-400">น้ำยาและวัสดุทางการแพทย์</p>
+                            <p class="text-[10px] sm:text-[11px] font-medium text-slate-400">น้ำยา/วัสดุแพทย์</p>
                             <h3 class="text-base sm:text-xl font-bold text-slate-800" id="stat-landing-reagent-med">0</h3>
                         </div>
                     </div>
@@ -306,37 +321,66 @@
                             <i data-lucide="pill" class="w-5 h-5"></i>
                         </div>
                         <div>
-                            <p class="text-[10px] sm:text-[11px] font-medium text-slate-400">ยาและเวชภัณฑ์ที่ไม่ใช่ยา</p>
+                            <p class="text-[10px] sm:text-[11px] font-medium text-slate-400">ยา/เวชภัณฑ์</p>
                             <h3 class="text-base sm:text-xl font-bold text-slate-800" id="stat-landing-pharma-med">0</h3>
                         </div>
                     </div>
                 </div>
 
-                <!-- Critical Low Stock Alert Table -->
-                <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 sm:p-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="flex items-center gap-2">
-                            <i data-lucide="bell-ring" class="w-5 h-5 text-brand-600"></i>
-                            <h3 class="font-bold text-slate-800 text-sm sm:text-base">รายการวัสดุที่ต้องสั่งเบิกเพิ่ม (ต่ำกว่าหรือเท่ากับจุด Reorder Point)</h3>
+                <!-- Alert Tables Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- 1. Critical Low Stock Alert Table -->
+                    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 sm:p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="bell-ring" class="w-5 h-5 text-brand-600"></i>
+                                <h3 class="font-bold text-slate-800 text-xs sm:text-sm">วัสดุที่ต้องสั่งเบิกเพิ่ม (ต่ำกว่า Min)</h3>
+                            </div>
+                            <span class="text-xs bg-red-50 text-red-600 px-2.5 py-1 rounded-full font-medium" id="landing-low-count-tag">0 รายการ</span>
                         </div>
-                        <span class="text-xs bg-red-50 text-red-600 px-2.5 py-1 rounded-full font-medium" id="landing-low-count-tag">0 รายการ</span>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs sm:text-sm">
+                                <thead class="bg-slate-50 text-slate-500 uppercase text-[11px]">
+                                    <tr>
+                                        <th class="py-3 px-3 rounded-l-xl">รหัส</th>
+                                        <th class="py-3 px-3">ชื่อรายการพัสดุ</th>
+                                        <th class="py-3 px-3 text-center">คงเหลือ</th>
+                                        <th class="py-3 px-3 text-center">จุดสั่งเพิ่ม</th>
+                                        <th class="py-3 px-3 rounded-r-xl text-center">สถานะ</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="landing-lowstock-tbody" class="divide-y divide-slate-100">
+                                    <tr><td colspan="5" class="text-center py-6 text-slate-400">กำลังตรวจสอบข้อมูลสต็อก...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left text-xs sm:text-sm">
-                            <thead class="bg-slate-50 text-slate-500 uppercase text-[11px]">
-                                <tr>
-                                    <th class="py-3 px-4 rounded-l-xl">รหัส</th>
-                                    <th class="py-3 px-4">ชื่อรายการพัสดุ</th>
-                                    <th class="py-3 px-4">หมวดหมู่</th>
-                                    <th class="py-3 px-4 text-center">คงเหลือ</th>
-                                    <th class="py-3 px-4 text-center">จุดสั่งเพิ่ม (Min)</th>
-                                    <th class="py-3 px-4 rounded-r-xl text-center">สถานะ</th>
-                                </tr>
-                            </thead>
-                            <tbody id="landing-lowstock-tbody" class="divide-y divide-slate-100">
-                                <tr><td colspan="6" class="text-center py-6 text-slate-400">กำลังตรวจสอบข้อมูลสต็อก...</td></tr>
-                            </tbody>
-                        </table>
+
+                    <!-- 2. Expiring & Expired Items Alert Table -->
+                    <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 sm:p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="calendar-clock" class="w-5 h-5 text-rose-600"></i>
+                                <h3 class="font-bold text-slate-800 text-xs sm:text-sm">รายการวัสดุที่ใกล้หมดอายุ / หมดอายุแล้ว</h3>
+                            </div>
+                            <span class="text-xs bg-rose-50 text-rose-600 px-2.5 py-1 rounded-full font-medium" id="landing-expiring-count-tag">0 รายการ</span>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs sm:text-sm">
+                                <thead class="bg-slate-50 text-slate-500 uppercase text-[11px]">
+                                    <tr>
+                                        <th class="py-3 px-3 rounded-l-xl">รหัส</th>
+                                        <th class="py-3 px-3">ชื่อรายการพัสดุ</th>
+                                        <th class="py-3 px-3 text-center">คงเหลือ</th>
+                                        <th class="py-3 px-3 text-center">วันหมดอายุ</th>
+                                        <th class="py-3 px-3 rounded-r-xl text-center">สถานะการแจ้งเตือน</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="landing-expiring-tbody" class="divide-y divide-slate-100">
+                                    <tr><td colspan="5" class="text-center py-6 text-slate-400">กำลังตรวจสอบข้อมูลวันหมดอายุ...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -385,33 +429,47 @@
                 </div>
 
                 <!-- Charts Section -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <div class="bg-white p-5 sm:p-6 rounded-2xl border border-slate-100 shadow-sm">
-                        <h4 class="font-bold text-xs sm:text-sm text-slate-800 mb-4 flex items-center gap-2">
-                            <i data-lucide="pie-chart" class="w-4 h-4 text-brand-600"></i> สัดส่วนพัสดุคงคลังแยกตามหมวดหมู่
-                        </h4>
-                        <div class="h-64 flex items-center justify-center">
-                            <canvas id="categoryChart"></canvas>
-                        </div>
-                    </div>
-                    <div class="bg-white p-5 sm:p-6 rounded-2xl border border-slate-100 shadow-sm">
-                        <h4 class="font-bold text-xs sm:text-sm text-slate-800 mb-4 flex items-center gap-2">
-                            <i data-lucide="bar-chart-3" class="w-4 h-4 text-brand-600"></i> 5 รายการพัสดุที่มีการเบิกจ่ายสูงสุด
-                        </h4>
-                        <div class="h-64 flex items-center justify-center">
-                            <canvas id="topUsageChart"></canvas>
-                        </div>
+                <div class="bg-white p-5 sm:p-6 rounded-2xl border border-slate-100 shadow-sm">
+                    <h4 class="font-bold text-xs sm:text-sm text-slate-800 mb-4 flex items-center gap-2">
+                        <i data-lucide="bar-chart-3" class="w-4 h-4 text-brand-600"></i> ปริมาณพัสดุคงคลังแยกตามหมวดหมู่ (4 หมวดหมู่หลัก)
+                    </h4>
+                    <div class="h-64 flex items-center justify-center w-full">
+                        <canvas id="categoryChart"></canvas>
                     </div>
                 </div>
 
-                <!-- Alert Box for Low Stock Items -->
-                <div class="bg-amber-50/70 border border-amber-200/80 rounded-2xl p-5">
-                    <div class="flex items-center gap-2 text-amber-800 font-bold text-xs sm:text-sm mb-3">
-                        <i data-lucide="alert-circle" class="w-5 h-5 text-amber-600"></i>
-                        แจ้งเตือนพัสดุที่ถึงจุดสั่งเบิกเพิ่ม (Reorder Point Alert)
+                <!-- Alert Grid for Low Stock & Expiring Items -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Alert Box for Low Stock Items -->
+                    <div class="bg-amber-50/70 border border-amber-200/80 rounded-2xl p-5 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center gap-2 text-amber-800 font-bold text-xs sm:text-sm">
+                                    <i data-lucide="alert-circle" class="w-5 h-5 text-amber-600"></i>
+                                    แจ้งเตือนพัสดุที่ถึงจุดสั่งเบิกเพิ่ม (Low Stock)
+                                </div>
+                                <span class="text-xs bg-amber-100 text-amber-800 px-2.5 py-0.5 rounded-full font-semibold" id="dash-low-count-tag">0 รายการ</span>
+                            </div>
+                            <div id="dash-lowstock-cards" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <!-- Card lists loaded dynamically -->
+                            </div>
+                        </div>
                     </div>
-                    <div id="dash-lowstock-cards" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-                        <!-- Card lists loaded dynamically -->
+
+                    <!-- Alert Box for Expiring Items -->
+                    <div class="bg-rose-50/70 border border-rose-200/80 rounded-2xl p-5 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center gap-2 text-rose-800 font-bold text-xs sm:text-sm">
+                                    <i data-lucide="calendar-clock" class="w-5 h-5 text-rose-600"></i>
+                                    แจ้งเตือนพัสดุใกล้หมดอายุ / หมดอายุแล้ว
+                                </div>
+                                <span class="text-xs bg-rose-100 text-rose-800 px-2.5 py-0.5 rounded-full font-semibold" id="dash-exp-count-tag">0 รายการ</span>
+                            </div>
+                            <div id="dash-exp-cards" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <!-- Card lists loaded dynamically -->
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -457,6 +515,12 @@
                         <option value="น้ำยาและวัสดุทางการแพทย์">น้ำยาและวัสดุทางการแพทย์</option>
                         <option value="ยาและเวชภัณฑ์ที่ไม่ใช่ยา">ยาและเวชภัณฑ์ที่ไม่ใช่ยา</option>
                     </select>
+                    <select id="filter-item-exp-status" onchange="renderInventoryTable()" class="px-3 py-2 text-xs sm:text-sm border border-slate-200 rounded-xl bg-white focus:outline-none focus:border-brand-500 font-medium text-slate-700">
+                        <option value="ALL">สถานะทั้งหมด</option>
+                        <option value="LOW_STOCK">⚠️ ต่ำกว่าจุดสั่งซื้อ (Low Stock)</option>
+                        <option value="EXPIRING">⏰ ใกล้หมดอายุ (ภายใน 60 วัน)</option>
+                        <option value="EXPIRED">🚨 หมดอายุแล้ว (Expired)</option>
+                    </select>
                 </div>
 
                 <!-- Inventory Table -->
@@ -472,6 +536,7 @@
                                     <th class="py-3.5 px-4 text-center">คงเหลือ</th>
                                     <th class="py-3.5 px-4 text-center">หน่วย</th>
                                     <th class="py-3.5 px-4 text-center">จุดสั่งเพิ่ม (Min)</th>
+                                    <th class="py-3.5 px-4 text-center">วันหมดอายุ</th>
                                     <th class="py-3.5 px-4 text-center">สถานะ</th>
                                     <th class="py-3.5 px-4 text-center">จัดการ</th>
                                 </tr>
@@ -584,6 +649,211 @@
                                     </tr>
                                 </thead>
                                 <tbody id="req-history-tbody" class="divide-y divide-slate-100">
+                                    <!-- Loaded dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5.5. VIEW: GOODS RECEIVING (บันทึกการตรวจรับพัสดุ) -->
+            <section id="view-receiving" class="hidden space-y-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-800 flex items-center gap-2">
+                            <i data-lucide="package-check" class="w-6 h-6 text-[#b91c1c]"></i>
+                            ระบบบันทึกการตรวจรับพัสดุเข้าคลัง (Goods Receipt)
+                        </h2>
+                        <p class="text-xs text-slate-400 mt-0.5">บันทึกตรวจรับพัสดุเข้าสต็อก แนบรูปถ่ายการตรวจรับ และเอกสารประกอบการตรวจรับ</p>
+                    </div>
+                </div>
+
+                <!-- Stats Overview Bar for Receiving -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+                            <i data-lucide="package-check" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <p class="text-[11px] font-medium text-slate-400">รายการตรวจรับทั้งหมด</p>
+                            <h3 class="text-lg font-bold text-slate-800" id="rec-stat-total">0 รายการ</h3>
+                        </div>
+                    </div>
+                    <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                            <i data-lucide="calendar" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <p class="text-[11px] font-medium text-slate-400">ตรวจรับเดือนนี้</p>
+                            <h3 class="text-lg font-bold text-blue-600" id="rec-stat-month">0 รายการ</h3>
+                        </div>
+                    </div>
+                    <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center shrink-0">
+                            <i data-lucide="paperclip" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <p class="text-[11px] font-medium text-slate-400">มีรูปถ่าย/เอกสารแนบ</p>
+                            <h3 class="text-lg font-bold text-purple-600" id="rec-stat-docs">0 รายการ</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Form Card: Record Goods Receipt -->
+                    <div class="bg-white p-5 sm:p-6 rounded-2xl border border-slate-100 shadow-sm space-y-4 lg:col-span-1">
+                        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                            <h3 class="text-sm font-bold text-slate-800 flex items-center gap-2">
+                                <i data-lucide="plus-circle" class="w-4 h-4 text-[#b91c1c]"></i> บันทึกตรวจรับพัสดุใหม่
+                            </h3>
+                        </div>
+
+                        <form id="form-receiving" onsubmit="submitReceivingForm(event)" class="space-y-3.5">
+                            <!-- Select Item -->
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1">หมวดหมู่พัสดุ</label>
+                                <select id="rec-category-filter" onchange="populateReceivingItemDropdown()" class="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 rounded-xl focus:outline-none focus:border-brand-500 bg-slate-50 font-medium">
+                                    <option value="ALL">-- ทุกหมวดหมู่ --</option>
+                                    <option value="วัสดุสำนักงาน">วัสดุสำนักงาน</option>
+                                    <option value="วัสดุงานบ้านงานครัว">วัสดุงานบ้านงานครัว</option>
+                                    <option value="น้ำยาและวัสดุทางการแพทย์">น้ำยาและวัสดุทางการแพทย์</option>
+                                    <option value="ยาและเวชภัณฑ์ที่ไม่ใช่ยา">ยาและเวชภัณฑ์ที่ไม่ใช่ยา</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1">เลือกรายการพัสดุ *</label>
+                                <select id="rec-item-id" required onchange="handleReceivingItemSelection()" class="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 rounded-xl focus:outline-none focus:border-brand-500 font-medium">
+                                    <option value="">-- เลือกรายการพัสดุ --</option>
+                                </select>
+                            </div>
+
+                            <!-- Qty & Unit -->
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-700 mb-1">จำนวนตรวจรับ *</label>
+                                    <input type="number" id="rec-qty" min="1" step="1" required placeholder="0" class="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 rounded-xl focus:outline-none focus:border-brand-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-700 mb-1">หน่วยนับ</label>
+                                    <input type="text" id="rec-unit-display" readonly placeholder="หน่วย" class="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 bg-slate-50 rounded-xl text-slate-500 font-medium">
+                                </div>
+                            </div>
+
+                            <!-- Dates: Receive Date & Exp Date -->
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-700 mb-1">วันที่ตรวจรับ *</label>
+                                    <input type="date" id="rec-date" required class="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 rounded-xl focus:outline-none focus:border-brand-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-700 mb-1">วันหมดอายุ (ถ้ามี)</label>
+                                    <input type="date" id="rec-exp-date" class="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 rounded-xl focus:outline-none focus:border-brand-500">
+                                </div>
+                            </div>
+
+                            <!-- PO Number & Supplier -->
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-700 mb-1">เลขที่ PO / ใบส่งของ</label>
+                                    <input type="text" id="rec-po-number" placeholder="เช่น PO-69001" class="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 rounded-xl focus:outline-none focus:border-brand-500">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-700 mb-1">บริษัท / ผู้จำหน่าย</label>
+                                    <input type="text" id="rec-supplier" placeholder="เช่น บจก. สยามเมดิคอล" class="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 rounded-xl focus:outline-none focus:border-brand-500">
+                                </div>
+                            </div>
+
+                            <!-- Receiver Staff -->
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1">เจ้าหน้าที่ผู้ตรวจรับ *</label>
+                                <select id="rec-staff-name" required class="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 rounded-xl focus:outline-none focus:border-brand-500">
+                                    <option value="">-- เลือกรายชื่อเจ้าหน้าที่ --</option>
+                                    <option value="สุภมาศ ลายเงิน">สุภมาศ ลายเงิน</option>
+                                    <option value="พิณทิพา อินฟู">พิณทิพา อินฟู</option>
+                                    <option value="พัฒนา สุขนิกร">พัฒนา สุขนิกร</option>
+                                    <option value="ณัฐการต์ เครือทนุ">ณัฐการต์ เครือทนุ</option>
+                                </select>
+                            </div>
+
+                            <!-- Notes -->
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-700 mb-1">หมายเหตุ / ผลการตรวจรับ</label>
+                                <textarea id="rec-notes" rows="2" placeholder="เช่น พัสดุสมบูรณ์ครบถ้วน สภาพดี ตรงตามสเปก" class="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 rounded-xl focus:outline-none focus:border-brand-500"></textarea>
+                            </div>
+
+                            <!-- Attachment Upload Section (Photo or PDF Document) -->
+                            <div class="border-t border-slate-100 pt-3">
+                                <label class="block text-xs font-semibold text-slate-700 mb-1.5 flex items-center justify-between">
+                                    <span>แนบรูปถ่ายการตรวจรับ / เอกสารสำคัญ</span>
+                                    <span class="text-[10px] text-slate-400 font-normal">(รองรับ JPG, PNG, PDF)</span>
+                                </label>
+                                
+                                <div id="rec-dropzone" class="border-2 border-dashed border-slate-200 hover:border-[#b91c1c] rounded-2xl p-3 text-center bg-slate-50/50 transition cursor-pointer relative" onclick="document.getElementById('rec-file-input').click()">
+                                    <input type="file" id="rec-file-input" accept="image/*,.pdf" class="hidden" onchange="handleReceivingFileSelect(event)">
+                                    <div id="rec-upload-prompt" class="space-y-1 py-1">
+                                        <div class="w-9 h-9 rounded-full bg-rose-50 text-[#b91c1c] flex items-center justify-center mx-auto">
+                                            <i data-lucide="camera" class="w-4 h-4"></i>
+                                        </div>
+                                        <p class="text-xs font-semibold text-slate-700">คลิกเพื่อถ่ายภาพ หรือเลือกรูปถ่าย/เอกสาร</p>
+                                        <p class="text-[10px] text-slate-400">ภาพถ่ายสินค้า, ใบตรวจรับ, ใบส่งของ (PO)</p>
+                                    </div>
+                                    <div id="rec-file-preview-container" class="hidden flex items-center justify-between bg-white p-2.5 rounded-xl border border-slate-200 text-left">
+                                        <div class="flex items-center gap-2.5 overflow-hidden">
+                                            <div id="rec-thumb-box" class="w-10 h-10 rounded-lg bg-slate-100 shrink-0 overflow-hidden flex items-center justify-center border border-slate-200">
+                                                <i data-lucide="file-text" class="w-5 h-5 text-slate-400"></i>
+                                            </div>
+                                            <div class="min-w-0">
+                                                <p id="rec-file-name" class="text-xs font-bold text-slate-800 truncate">filename.jpg</p>
+                                                <p id="rec-file-size" class="text-[10px] text-slate-400">0 KB</p>
+                                            </div>
+                                        </div>
+                                        <button type="button" onclick="event.stopPropagation(); clearReceivingFile()" class="p-1 text-slate-400 hover:text-rose-600 rounded-lg hover:bg-rose-50">
+                                            <i data-lucide="x" class="w-4 h-4"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="w-full py-2.5 bg-[#b91c1c] hover:bg-rose-700 text-white font-bold rounded-xl text-xs sm:text-sm shadow-md transition flex items-center justify-center gap-2 cursor-pointer mt-2">
+                                <i data-lucide="package-plus" class="w-4 h-4"></i> ยืนยันบันทึกตรวจรับเข้าคลัง (+สต็อก)
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Table Card: Receiving Records History -->
+                    <div class="bg-white p-5 sm:p-6 rounded-2xl border border-slate-100 shadow-sm lg:col-span-2 space-y-4">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-3">
+                            <div>
+                                <h3 class="text-xs sm:text-sm font-bold text-slate-800 flex items-center gap-2">
+                                    <i data-lucide="history" class="w-4 h-4 text-[#b91c1c]"></i> ประวัติการตรวจรับพัสดุเข้าคลังทั้งหมด
+                                </h3>
+                                <p class="text-[11px] text-slate-400 mt-0.5">รายการพัสดุที่ทำการตรวจรับสำเร็จพร้อมรูปถ่าย/เอกสารแนบ</p>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <div class="relative">
+                                    <i data-lucide="search" class="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                                    <input type="text" id="rec-search-input" oninput="renderReceivingHistoryTable()" placeholder="ค้นหาตาม PO, พัสดุ, ผู้ส่ง..." class="pl-8 pr-3 py-1.5 text-xs border border-slate-200 rounded-xl focus:outline-none focus:border-brand-500 w-44 sm:w-56">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs sm:text-sm">
+                                <thead class="bg-slate-50 text-slate-500 uppercase text-[11px]">
+                                    <tr>
+                                        <th class="py-3 px-3">วันที่ตรวจรับ</th>
+                                        <th class="py-3 px-3">รายการพัสดุ</th>
+                                        <th class="py-3 px-3 text-center">จำนวนรับ</th>
+                                        <th class="py-3 px-3">PO / ใบส่งของ</th>
+                                        <th class="py-3 px-3">บริษัท / ผู้ส่ง</th>
+                                        <th class="py-3 px-3">ผู้ตรวจรับ</th>
+                                        <th class="py-3 px-3 text-center">รูปถ่าย/เอกสาร</th>
+                                        <th class="py-3 px-3 text-center">จัดการ</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="rec-history-tbody" class="divide-y divide-slate-100">
                                     <!-- Loaded dynamically -->
                                 </tbody>
                             </table>
@@ -825,9 +1095,15 @@
                         <input type="number" id="item-min" min="0" required placeholder="5" class="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 rounded-xl focus:border-brand-500">
                     </div>
                 </div>
-                <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">URL รูปภาพพัสดุ (ถ้ามี)</label>
-                    <input type="url" id="item-image" placeholder="https://..." class="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 rounded-xl focus:border-brand-500">
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">วันหมดอายุ (ถ้ามี)</label>
+                        <input type="date" id="item-exp-date" class="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 rounded-xl focus:outline-none focus:border-brand-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 mb-1">URL รูปภาพพัสดุ (ถ้ามี)</label>
+                        <input type="url" id="item-image" placeholder="https://..." class="w-full px-3 py-2 text-xs sm:text-sm border border-slate-200 rounded-xl focus:border-brand-500">
+                    </div>
                 </div>
                 <div class="flex justify-end gap-2 pt-3 border-t border-slate-100">
                     <button type="button" onclick="closeModal('modal-item')" class="px-4 py-2 bg-slate-100 text-slate-700 text-xs font-semibold rounded-xl">ยกเลิก</button>
@@ -911,6 +1187,7 @@ CREATE TABLE IF NOT EXISTS public.inventory (
     stock INT NOT NULL DEFAULT 0,
     unit TEXT NOT NULL,
     min_reorder INT NOT NULL DEFAULT 5,
+    exp_date DATE,
     image_url TEXT,
     created_at TIMESTAMPTZ DEFAULT NOW()
 );
@@ -1024,6 +1301,70 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
         </div>
     </div>
 
+    <!-- MODAL: DOCUMENT & PHOTO VIEWER -->
+    <div id="modal-doc-viewer" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-white rounded-3xl max-w-2xl w-full p-5 sm:p-6 shadow-2xl border border-slate-100 space-y-4 max-h-[90vh] flex flex-col">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-rose-50 text-[#b91c1c] flex items-center justify-center shrink-0">
+                        <i data-lucide="file-check" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-800 text-sm sm:text-base" id="doc-viewer-title">เอกสารการตรวจรับพัสดุ</h3>
+                        <p class="text-[11px] text-slate-400" id="doc-viewer-sub">รายละเอียดหลักฐานการตรวจรับ</p>
+                    </div>
+                </div>
+                <button onclick="closeModal('modal-doc-viewer')" class="p-1 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto space-y-4 pr-1">
+                <!-- Record details header -->
+                <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+                    <div>
+                        <span class="text-[10px] text-slate-400 block font-medium">เลขที่ PO/ใบส่งของ</span>
+                        <span id="doc-view-po" class="font-bold text-slate-800 font-mono">-</span>
+                    </div>
+                    <div>
+                        <span class="text-[10px] text-slate-400 block font-medium">วันที่ตรวจรับ</span>
+                        <span id="doc-view-date" class="font-semibold text-slate-700">-</span>
+                    </div>
+                    <div>
+                        <span class="text-[10px] text-slate-400 block font-medium">บริษัท/ผู้จำหน่าย</span>
+                        <span id="doc-view-supplier" class="font-semibold text-slate-700 truncate block">-</span>
+                    </div>
+                    <div>
+                        <span class="text-[10px] text-slate-400 block font-medium">ผู้ตรวจรับ</span>
+                        <span id="doc-view-receiver" class="font-semibold text-slate-700">-</span>
+                    </div>
+                </div>
+
+                <!-- Attached Image or Document preview area -->
+                <div id="doc-viewer-preview-container" class="bg-slate-950 rounded-2xl p-2 min-h-[220px] sm:min-h-[320px] flex items-center justify-center relative overflow-hidden border border-slate-800">
+                    <img id="doc-viewer-img" src="" alt="รูปถ่ายการตรวจรับ" class="max-h-[480px] w-auto max-w-full object-contain rounded-xl shadow-md hidden">
+                    <iframe id="doc-viewer-pdf" src="" class="w-full h-[400px] rounded-xl hidden"></iframe>
+                    <div id="doc-viewer-placeholder" class="text-center text-slate-400 p-6 space-y-2">
+                        <i data-lucide="file-x" class="w-10 h-10 mx-auto opacity-50"></i>
+                        <p class="text-xs">ไม่มีรูปถ่ายหรือไฟล์เอกสารแนบในรายการนี้</p>
+                    </div>
+                </div>
+
+                <!-- Notes / Remarks -->
+                <div class="bg-amber-50/60 border border-amber-200/60 p-3.5 rounded-xl text-xs">
+                    <span class="font-bold text-amber-900 block mb-0.5">หมายเหตุ / ผลการตรวจรับ:</span>
+                    <p id="doc-view-notes" class="text-amber-800 font-normal leading-relaxed">-</p>
+                </div>
+            </div>
+
+            <div class="flex justify-end gap-2 pt-3 border-t border-slate-100">
+                <button type="button" onclick="closeModal('modal-doc-viewer')" class="px-4 py-2 bg-slate-100 text-slate-700 text-xs font-semibold rounded-xl hover:bg-slate-200">ปิดหน้าต่าง</button>
+                <a id="doc-download-link" href="#" download target="_blank" class="hidden px-4 py-2 bg-[#b91c1c] text-white text-xs font-semibold rounded-xl hover:bg-rose-700 flex items-center gap-1.5">
+                    <i data-lucide="download" class="w-4 h-4"></i> ดาวน์โหลดไฟล์
+                </a>
+            </div>
+        </div>
+    </div>
 
     <!-- APP LOGIC SCRIPT -->
     <script>
@@ -1063,10 +1404,50 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
             { id: 'r4', item_id: '6', item_code: 'KIT-001', item_name: 'น้ำยาล้างจาน/แก้วทดลอง 500 ml', category: 'วัสดุงานบ้านงานครัว', qty: 2, staff_name: 'ณัฐการต์ เครือทนุ', req_date: '2026-09-19', notes: 'ทำความสะอาดอุปกรณ์ห้องปฏิบัติการ' }
         ];
 
+        const DEFAULT_RECEIVINGS = [
+            {
+                id: 'rc1',
+                item_id: '1',
+                item_code: 'OFF-001',
+                item_name: 'กระดาษ A4 80 แกรม',
+                category: 'วัสดุสำนักงาน',
+                qty: 20,
+                unit: 'รีม',
+                po_number: 'PO-69001',
+                supplier: 'บริษัท สยาม ออฟฟิศ ซัพพลาย จำกัด',
+                receive_date: '2026-09-10',
+                exp_date: '',
+                receiver: 'สุภมาศ ลายเงิน',
+                notes: 'ตรวจรับถูกต้องครบถ้วน สภาพสมบูรณ์',
+                attachment_name: 'ใบตรวจรับ_PO69001.jpg',
+                attachment_type: 'image',
+                attachment_data: ''
+            },
+            {
+                id: 'rc2',
+                item_id: '12',
+                item_code: 'MED-002',
+                item_name: 'ถุงเก็บโลหิต Single Bag 450 ml',
+                category: 'น้ำยาและวัสดุทางการแพทย์',
+                qty: 50,
+                unit: 'ถุง',
+                po_number: 'PO-69002',
+                supplier: 'บริษัท เมดิคอลแคร์ เทคโนโลยี จำกัด',
+                receive_date: '2026-09-12',
+                exp_date: '2027-09-12',
+                receiver: 'สุภมาศ ลายเงิน',
+                notes: 'ตรวจรับถุงเก็บเลือด ล็อตผลิต M260912 สภาพเรียบร้อย',
+                attachment_name: 'ใบส่งมอบสินค้า.pdf',
+                attachment_type: 'pdf',
+                attachment_data: ''
+            }
+        ];
+
         // State Store
         let state = {
             items: [],
             requisitions: [],
+            receivings: [],
             users: [],
             currentUser: null,
             supabase: null,
@@ -1095,12 +1476,16 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
             if (!localStorage.getItem('bb_requisitions')) {
                 localStorage.setItem('bb_requisitions', JSON.stringify(DEFAULT_REQUISITIONS));
             }
+            if (!localStorage.getItem('bb_receivings')) {
+                localStorage.setItem('bb_receivings', JSON.stringify(DEFAULT_RECEIVINGS));
+            }
             if (!localStorage.getItem('bb_users')) {
                 localStorage.setItem('bb_users', JSON.stringify(DEFAULT_USERS));
             }
 
             state.items = JSON.parse(localStorage.getItem('bb_inventory_items'));
             state.requisitions = JSON.parse(localStorage.getItem('bb_requisitions'));
+            state.receivings = JSON.parse(localStorage.getItem('bb_receivings'));
             state.users = JSON.parse(localStorage.getItem('bb_users'));
         }
 
@@ -1217,7 +1602,7 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
             const mobileBottomNav = document.getElementById('mobile-bottom-nav');
             const hideOnViews = ['landing', 'login'];
 
-            if (state.currentUser && !hideOnViews.includes(state.activeView)) {
+            if (!hideOnViews.includes(state.activeView)) {
                 if (sidebar) {
                     sidebar.classList.add('hidden', 'md:flex');
                 }
@@ -1244,41 +1629,46 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
             const adminSection = document.getElementById('sidebar-admin-section');
             const historyRoleNote = document.getElementById('req-history-role-note');
             const heroBtnDash = document.getElementById('hero-btn-dashboard');
+            const heroBtnLogin = document.getElementById('hero-btn-login');
 
             if (state.currentUser) {
-                tag.classList.remove('hidden');
-                tag.classList.add('flex');
-                btnLogin.classList.add('hidden');
-                btnLogout.classList.remove('hidden');
-                btnLogout.classList.add('flex');
+                if (tag) { tag.classList.remove('hidden'); tag.classList.add('flex'); }
+                if (btnLogin) { btnLogin.classList.add('hidden'); btnLogin.classList.remove('flex'); }
+                if (btnLogout) { btnLogout.classList.remove('hidden'); btnLogout.classList.add('flex'); }
 
                 if (heroBtnDash) {
                     heroBtnDash.classList.remove('hidden');
                     heroBtnDash.classList.add('flex');
                 }
+                if (heroBtnLogin) {
+                    heroBtnLogin.classList.add('hidden');
+                    heroBtnLogin.classList.remove('flex');
+                }
 
-                document.getElementById('auth-fullname').textContent = state.currentUser.full_name;
-                document.getElementById('auth-avatar').textContent = state.currentUser.full_name.charAt(0);
-                document.getElementById('auth-badge-role').textContent = state.currentUser.role === 'admin' ? 'ผู้ดูแลระบบ (Admin)' : 'เจ้าหน้าที่ (Staff)';
+                if (document.getElementById('auth-fullname')) document.getElementById('auth-fullname').textContent = state.currentUser.full_name;
+                if (document.getElementById('auth-avatar')) document.getElementById('auth-avatar').textContent = state.currentUser.full_name.charAt(0);
+                if (document.getElementById('auth-badge-role')) document.getElementById('auth-badge-role').textContent = state.currentUser.role === 'admin' ? 'ผู้ดูแลระบบ (Admin)' : 'เจ้าหน้าที่ (Staff)';
 
                 if (state.currentUser.role === 'admin') {
-                    adminSection.classList.remove('hidden');
+                    if (adminSection) adminSection.classList.remove('hidden');
                     if (historyRoleNote) historyRoleNote.textContent = 'แสดงประวัติการเบิกจ่ายทั้งหมด';
                 } else {
-                    adminSection.classList.add('hidden');
+                    if (adminSection) adminSection.classList.add('hidden');
                     if (historyRoleNote) historyRoleNote.textContent = `แสดงประวัติของ ${state.currentUser.full_name}`;
                 }
             } else {
-                tag.classList.add('hidden');
-                tag.classList.remove('flex');
-                btnLogin.classList.remove('hidden');
-                btnLogout.classList.add('hidden');
-                btnLogout.classList.remove('flex');
-                adminSection.classList.add('hidden');
+                if (tag) { tag.classList.add('hidden'); tag.classList.remove('flex'); }
+                if (btnLogin) { btnLogin.classList.add('hidden'); btnLogin.classList.remove('flex'); }
+                if (btnLogout) { btnLogout.classList.add('hidden'); btnLogout.classList.remove('flex'); }
+                if (adminSection) adminSection.classList.add('hidden');
 
                 if (heroBtnDash) {
-                    heroBtnDash.classList.add('hidden');
-                    heroBtnDash.classList.remove('flex');
+                    heroBtnDash.classList.remove('hidden');
+                    heroBtnDash.classList.add('flex');
+                }
+                if (heroBtnLogin) {
+                    heroBtnLogin.classList.add('hidden');
+                    heroBtnLogin.classList.remove('flex');
                 }
             }
 
@@ -1315,14 +1705,14 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
         // --- NAVIGATION ---
         function navigatePage(viewId, highlightKey = null) {
             const navKey = highlightKey || viewId;
-            const views = ['landing', 'login', 'dashboard', 'inventory', 'requisition', 'report', 'users'];
+            const views = ['landing', 'login', 'dashboard', 'inventory', 'receiving', 'requisition', 'report', 'users'];
             views.forEach(v => {
                 const el = document.getElementById(`view-${v}`);
                 if (el) el.classList.add('hidden');
             });
 
             // Restrict views if not logged in
-            if (['dashboard', 'inventory', 'users'].includes(viewId) && !state.currentUser) {
+            if (['dashboard', 'inventory', 'receiving', 'requisition', 'users'].includes(viewId) && !state.currentUser) {
                 showToast("ต้องเข้าสู่ระบบ", "กรุณาเข้าสู่ระบบก่อนเข้าใช้งานเมนูนี้", "amber");
                 viewId = 'login';
             }
@@ -1351,21 +1741,21 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
             // Update Active Sidebar Highlight (Desktop & Mobile)
             document.querySelectorAll('.side-nav-link').forEach(btn => {
                 if (btn.dataset.view === navKey) {
-                    btn.classList.add('bg-brand-50', 'text-brand-700', 'font-semibold');
-                    btn.classList.remove('text-slate-600');
+                    btn.classList.add('bg-white/20', 'text-white', 'font-bold', 'border-l-4', 'border-rose-400');
+                    btn.classList.remove('text-rose-100/80', 'font-medium');
                 } else {
-                    btn.classList.remove('bg-brand-50', 'text-brand-700', 'font-semibold');
-                    btn.classList.add('text-slate-600');
+                    btn.classList.remove('bg-white/20', 'text-white', 'font-bold', 'border-l-4', 'border-rose-400');
+                    btn.classList.add('text-rose-100/80', 'font-medium');
                 }
             });
 
             document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
                 if (btn.dataset.view === navKey) {
-                    btn.classList.add('text-brand-600', 'font-bold');
-                    btn.classList.remove('text-slate-500');
+                    btn.classList.add('text-white', 'font-bold', 'bg-white/15');
+                    btn.classList.remove('text-rose-200/70', 'font-medium');
                 } else {
-                    btn.classList.remove('text-brand-600', 'font-bold');
-                    btn.classList.add('text-slate-500');
+                    btn.classList.remove('text-white', 'font-bold', 'bg-white/15');
+                    btn.classList.add('text-rose-200/70', 'font-medium');
                 }
             });
 
@@ -1384,6 +1774,10 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
                     break;
                 case 'inventory':
                     renderInventoryTable();
+                    break;
+                case 'receiving':
+                    populateReceivingItemDropdown();
+                    renderReceivingView();
                     break;
                 case 'requisition':
                     populateReqItemDropdown();
@@ -1407,10 +1801,49 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
             }
         }
 
+        // --- EXPIRING ITEMS HELPERS ---
+        function getExpiringItems(daysThreshold = 60) {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            return state.items.filter(i => {
+                if (!i.exp_date) return false;
+                const expObj = new Date(i.exp_date);
+                const diffDays = Math.ceil((expObj - today) / (1000 * 60 * 60 * 24));
+                return diffDays <= daysThreshold;
+            }).sort((a, b) => new Date(a.exp_date) - new Date(b.exp_date));
+        }
+
+        function getExpStatusInfo(expDate) {
+            if (!expDate) return { isExpired: false, isExpiring: false, diffDays: null, badge: '' };
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const expObj = new Date(expDate);
+            const diffDays = Math.ceil((expObj - today) / (1000 * 60 * 60 * 24));
+
+            if (diffDays < 0) {
+                return {
+                    isExpired: true,
+                    isExpiring: false,
+                    diffDays,
+                    badge: `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-rose-100 text-rose-700"><span class="w-1.5 h-1.5 rounded-full bg-rose-600 animate-ping"></span> หมดอายุแล้ว</span>`
+                };
+            } else if (diffDays <= 60) {
+                return {
+                    isExpired: false,
+                    isExpiring: true,
+                    diffDays,
+                    badge: `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-amber-100 text-amber-800"><span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> อีก ${diffDays} วันหมดอายุ</span>`
+                };
+            }
+            return { isExpired: false, isExpiring: false, diffDays, badge: '' };
+        }
+
         // --- LANDING VIEW ---
         function renderLandingPage() {
             const total = state.items.length;
             const lowStockItems = state.items.filter(i => Number(i.stock) <= Number(i.min_reorder));
+            const expiringItems = getExpiringItems(60);
             const officeCount = state.items.filter(i => i.category === 'วัสดุสำนักงาน').length;
             const kitchenCount = state.items.filter(i => i.category === 'วัสดุงานบ้านงานครัว').length;
             const reagentMedCount = state.items.filter(i => i.category === 'น้ำยาและวัสดุทางการแพทย์' || i.category === 'วัสดุทางการแพทย์').length;
@@ -1418,57 +1851,116 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
 
             document.getElementById('stat-landing-total').textContent = total;
             document.getElementById('stat-landing-low').textContent = lowStockItems.length;
+            const elExpiringStat = document.getElementById('stat-landing-expiring');
+            if (elExpiringStat) elExpiringStat.textContent = expiringItems.length;
             document.getElementById('stat-landing-office').textContent = officeCount;
             document.getElementById('stat-landing-kitchen').textContent = kitchenCount;
             const elReagent = document.getElementById('stat-landing-reagent-med');
             if (elReagent) elReagent.textContent = reagentMedCount;
             const elPharma = document.getElementById('stat-landing-pharma-med');
             if (elPharma) elPharma.textContent = pharmaMedCount;
-            document.getElementById('landing-low-count-tag').textContent = `${lowStockItems.length} รายการ`;
 
-            const tbody = document.getElementById('landing-lowstock-tbody');
+            document.getElementById('landing-low-count-tag').textContent = `${lowStockItems.length} รายการ`;
+            const expTag = document.getElementById('landing-expiring-count-tag');
+            if (expTag) expTag.textContent = `${expiringItems.length} รายการ`;
+
+            // 1. Low stock table
+            const tbodyLow = document.getElementById('landing-lowstock-tbody');
             if (lowStockItems.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-emerald-600 font-medium">✨ ไม่มีรายการพัสดุที่ต่ำกว่าจุดสั่งซื้อ</td></tr>`;
-                return;
+                tbodyLow.innerHTML = `<tr><td colspan="5" class="text-center py-6 text-emerald-600 font-medium">✨ ไม่มีรายการพัสดุที่ต่ำกว่าจุดสั่งซื้อ</td></tr>`;
+            } else {
+                tbodyLow.innerHTML = lowStockItems.map(item => `
+                    <tr class="hover:bg-slate-50 transition">
+                        <td class="py-3 px-3 font-mono text-slate-500 font-medium text-xs">${item.code}</td>
+                        <td class="py-3 px-3 font-semibold text-slate-800 text-xs">${item.name}</td>
+                        <td class="py-3 px-3 text-center font-bold text-red-600 text-xs">${item.stock} ${item.unit}</td>
+                        <td class="py-3 px-3 text-center text-slate-500 text-xs">${item.min_reorder} ${item.unit}</td>
+                        <td class="py-3 px-3 text-center">
+                            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-red-100 text-red-700">
+                                <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> ต้องสั่งเบิกเพิ่ม
+                            </span>
+                        </td>
+                    </tr>
+                `).join('');
             }
 
-            tbody.innerHTML = lowStockItems.map(item => `
-                <tr class="hover:bg-slate-50 transition">
-                    <td class="py-3 px-4 font-mono text-slate-500 font-medium">${item.code}</td>
-                    <td class="py-3 px-4 font-semibold text-slate-800">${item.name}</td>
-                    <td class="py-3 px-4 text-slate-500">${item.category}</td>
-                    <td class="py-3 px-4 text-center font-bold text-red-600">${item.stock} ${item.unit}</td>
-                    <td class="py-3 px-4 text-center text-slate-500">${item.min_reorder} ${item.unit}</td>
-                    <td class="py-3 px-4 text-center">
-                        <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-red-100 text-red-700">
-                            <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> ต้องสั่งเบิกเพิ่ม
-                        </span>
-                    </td>
-                </tr>
-            `).join('');
+            // 2. Expiring items table
+            const tbodyExp = document.getElementById('landing-expiring-tbody');
+            if (tbodyExp) {
+                if (expiringItems.length === 0) {
+                    tbodyExp.innerHTML = `<tr><td colspan="5" class="text-center py-6 text-emerald-600 font-medium">✨ ไม่มีรายการพัสดุที่ใกล้หมดอายุ</td></tr>`;
+                } else {
+                    tbodyExp.innerHTML = expiringItems.map(item => {
+                        const statusInfo = getExpStatusInfo(item.exp_date);
+                        return `
+                            <tr class="hover:bg-slate-50 transition">
+                                <td class="py-3 px-3 font-mono text-slate-500 font-medium text-xs">${item.code}</td>
+                                <td class="py-3 px-3 font-semibold text-slate-800 text-xs">${item.name}</td>
+                                <td class="py-3 px-3 text-center font-bold text-slate-700 text-xs">${item.stock} ${item.unit}</td>
+                                <td class="py-3 px-3 text-center text-xs">${formatExpDate(item.exp_date)}</td>
+                                <td class="py-3 px-3 text-center">
+                                    ${statusInfo.badge}
+                                </td>
+                            </tr>
+                        `;
+                    }).join('');
+                }
+            }
         }
 
         // --- DASHBOARD VIEW ---
         function renderDashboard() {
-            // Render Cards
+            // Render Low Stock Cards
             const lowStockItems = state.items.filter(i => Number(i.stock) <= Number(i.min_reorder));
             const cardsDiv = document.getElementById('dash-lowstock-cards');
+            const lowTag = document.getElementById('dash-low-count-tag');
+            if (lowTag) lowTag.textContent = `${lowStockItems.length} รายการ`;
 
             if (lowStockItems.length === 0) {
-                cardsDiv.innerHTML = `<div class="col-span-3 text-xs text-emerald-700 font-medium py-2">ไม่มีพัสดุที่ต้องสั่งซื้อเพิ่ม สต็อกพัสดุอยู่ในระดับปลอดภัยทั้งหมด</div>`;
+                cardsDiv.innerHTML = `<div class="col-span-2 text-xs text-emerald-700 font-medium py-2">ไม่มีพัสดุที่ต้องสั่งซื้อเพิ่ม</div>`;
             } else {
                 cardsDiv.innerHTML = lowStockItems.map(i => `
                     <div class="bg-white p-3.5 rounded-xl border border-amber-200 shadow-sm flex items-center justify-between">
                         <div>
-                            <p class="text-[11px] font-mono text-amber-700 font-semibold">${i.code}</p>
+                            <p class="text-[10px] font-mono text-amber-700 font-semibold">${i.code}</p>
                             <h4 class="text-xs font-bold text-slate-800 leading-tight">${i.name}</h4>
                             <p class="text-[10px] text-slate-400 mt-0.5">เหลือ: <span class="font-bold text-red-600">${i.stock}</span> / Min: ${i.min_reorder} ${i.unit}</p>
                         </div>
-                        <button onclick="quickReqFromDash('${i.id}')" class="px-2.5 py-1 bg-brand-600 hover:bg-brand-700 text-white rounded-lg text-[11px] font-medium transition shrink-0">
+                        <button onclick="quickReqFromDash('${i.id}')" class="px-2.5 py-1 bg-brand-600 hover:bg-brand-700 text-white rounded-lg text-[10px] font-medium transition shrink-0">
                             เบิกด่วน
                         </button>
                     </div>
                 `).join('');
+            }
+
+            // Render Expiring Items Cards
+            const expiringItems = getExpiringItems(60);
+            const expCardsDiv = document.getElementById('dash-exp-cards');
+            const expTag = document.getElementById('dash-exp-count-tag');
+            if (expTag) expTag.textContent = `${expiringItems.length} รายการ`;
+
+            if (expCardsDiv) {
+                if (expiringItems.length === 0) {
+                    expCardsDiv.innerHTML = `<div class="col-span-2 text-xs text-emerald-700 font-medium py-2">ไม่มีพัสดุที่ใกล้หมดอายุ</div>`;
+                } else {
+                    expCardsDiv.innerHTML = expiringItems.map(i => {
+                        return `
+                            <div class="bg-white p-3.5 rounded-xl border border-rose-200 shadow-sm flex items-center justify-between">
+                                <div>
+                                    <p class="text-[10px] font-mono text-rose-700 font-semibold">${i.code}</p>
+                                    <h4 class="text-xs font-bold text-slate-800 leading-tight">${i.name}</h4>
+                                    <div class="mt-1 flex items-center gap-1.5">
+                                        ${formatExpDate(i.exp_date)}
+                                        <span class="text-[10px] text-slate-400">(${i.stock} ${i.unit})</span>
+                                    </div>
+                                </div>
+                                <button onclick="quickReqFromDash('${i.id}')" class="px-2.5 py-1 bg-rose-600 hover:bg-rose-700 text-white rounded-lg text-[10px] font-medium transition shrink-0">
+                                    เบิกด่วน
+                                </button>
+                            </div>
+                        `;
+                    }).join('');
+                }
             }
 
             // Render Charts
@@ -1485,69 +1977,62 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
         }
 
         function renderCharts() {
-            // Chart 1: Category Ratio
+            // Category Bar Chart (4 Categories)
             const ctx1 = document.getElementById('categoryChart')?.getContext('2d');
             if (ctx1) {
-                const officeCount = state.items.filter(i => i.category === 'วัสดุสำนักงาน').reduce((acc, i) => acc + Number(i.stock), 0);
-                const kitchenCount = state.items.filter(i => i.category === 'วัสดุงานบ้านงานครัว').reduce((acc, i) => acc + Number(i.stock), 0);
-                const reagentMedCount = state.items.filter(i => i.category === 'น้ำยาและวัสดุทางการแพทย์' || i.category === 'วัสดุทางการแพทย์').reduce((acc, i) => acc + Number(i.stock), 0);
-                const pharmaMedCount = state.items.filter(i => i.category === 'ยาและเวชภัณฑ์ที่ไม่ใช่ยา').reduce((acc, i) => acc + Number(i.stock), 0);
+                const officeItems = state.items.filter(i => i.category === 'วัสดุสำนักงาน');
+                const kitchenItems = state.items.filter(i => i.category === 'วัสดุงานบ้านงานครัว');
+                const reagentMedItems = state.items.filter(i => i.category === 'น้ำยาและวัสดุทางการแพทย์' || i.category === 'วัสดุทางการแพทย์');
+                const pharmaMedItems = state.items.filter(i => i.category === 'ยาและเวชภัณฑ์ที่ไม่ใช่ยา');
+
+                const officeStock = officeItems.reduce((acc, i) => acc + Math.min(Number(i.stock || 0), 500), 0);
+                const kitchenStock = kitchenItems.reduce((acc, i) => acc + Math.min(Number(i.stock || 0), 500), 0);
+                const reagentMedStock = reagentMedItems.reduce((acc, i) => acc + Math.min(Number(i.stock || 0), 500), 0);
+                const pharmaMedStock = pharmaMedItems.reduce((acc, i) => acc + Math.min(Number(i.stock || 0), 500), 0);
 
                 if (categoryChartInstance) categoryChartInstance.destroy();
 
                 categoryChartInstance = new Chart(ctx1, {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['วัสดุสำนักงาน', 'วัสดุงานบ้านงานครัว', 'น้ำยาและวัสดุทางการแพทย์', 'ยาและเวชภัณฑ์ที่ไม่ใช่ยา'],
-                        datasets: [{
-                            data: [officeCount, kitchenCount, reagentMedCount, pharmaMedCount],
-                            backgroundColor: ['#dc2626', '#8b5cf6', '#0284c7', '#059669'],
-                            borderWidth: 2
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: { position: 'bottom', labels: { font: { family: 'Kanit' } } }
-                        }
-                    }
-                });
-            }
-
-            // Chart 2: Top Usage Items
-            const ctx2 = document.getElementById('topUsageChart')?.getContext('2d');
-            if (ctx2) {
-                // Aggregate requisitions by item name
-                const usageMap = {};
-                state.requisitions.forEach(r => {
-                    usageMap[r.item_name] = (usageMap[r.item_name] || 0) + Number(r.qty);
-                });
-
-                const sortedItems = Object.keys(usageMap).sort((a,b) => usageMap[b] - usageMap[a]).slice(0, 5);
-                const sortedData = sortedItems.map(k => usageMap[k]);
-
-                if (topUsageChartInstance) topUsageChartInstance.destroy();
-
-                topUsageChartInstance = new Chart(ctx2, {
                     type: 'bar',
                     data: {
-                        labels: sortedItems.length > 0 ? sortedItems : ['ยังไม่มีข้อมูลเบิกจ่าย'],
+                        labels: [
+                            `วัสดุสำนักงาน (${officeItems.length} รายการ)`,
+                            `วัสดุงานบ้านงานครัว (${kitchenItems.length} รายการ)`,
+                            `น้ำยา/วัสดุทางการแพทย์ (${reagentMedItems.length} รายการ)`,
+                            `ยา/เวชภัณฑ์ (${pharmaMedItems.length} รายการ)`
+                        ],
                         datasets: [{
-                            label: 'จำนวนเบิกสะสม',
-                            data: sortedData.length > 0 ? sortedData : [0],
-                            backgroundColor: '#ef4444',
-                            borderRadius: 8
+                            label: 'ปริมาณคงเหลือรวม',
+                            data: [officeStock, kitchenStock, reagentMedStock, pharmaMedStock],
+                            backgroundColor: ['#dc2626', '#8b5cf6', '#0284c7', '#059669'],
+                            borderRadius: 8,
+                            borderWidth: 0,
+                            barPercentage: 0.45
                         }]
                     },
                     options: {
                         responsive: true,
                         maintainAspectRatio: false,
                         plugins: {
-                            legend: { display: false, labels: { font: { family: 'Kanit' } } }
+                            legend: { display: false },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return ` ปริมาณคงเหลือรวม: ${context.parsed.y.toLocaleString()} `;
+                                    }
+                                }
+                            }
                         },
                         scales: {
-                            y: { beginAtZero: true, ticks: { precision: 0 } }
+                            y: {
+                                beginAtZero: true,
+                                grid: { color: '#f1f5f9' },
+                                ticks: { font: { family: 'Kanit' } }
+                            },
+                            x: {
+                                grid: { display: false },
+                                ticks: { font: { family: 'Kanit', size: 11 } }
+                            }
                         }
                     }
                 });
@@ -1555,19 +2040,66 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
         }
 
         // --- INVENTORY MANAGEMENT VIEW ---
+        function formatExpDate(dateStr) {
+            if (!dateStr) return `<span class="text-slate-400 font-normal text-xs">-</span>`;
+            const parts = dateStr.split('-');
+            if (parts.length !== 3) return dateStr;
+            const [y, m, d] = parts;
+            const yearBE = parseInt(y) + 543;
+            const expObj = new Date(dateStr);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const diffDays = Math.ceil((expObj - today) / (1000 * 60 * 60 * 24));
+
+            if (diffDays < 0) {
+                return `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-rose-100 text-rose-700" title="หมดอายุแล้ว">
+                    <i data-lucide="alert-triangle" class="w-3 h-3"></i> ${d}/${m}/${yearBE}
+                </span>`;
+            } else if (diffDays <= 60) {
+                return `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-amber-100 text-amber-800" title="ใกล้หมดอายุ (${diffDays} วัน)">
+                    <i data-lucide="clock" class="w-3 h-3"></i> ${d}/${m}/${yearBE}
+                </span>`;
+            }
+            return `<span class="text-slate-600 font-mono text-xs">${d}/${m}/${yearBE}</span>`;
+        }
+
         function renderInventoryTable() {
             const kw = document.getElementById('filter-item-keyword').value.trim().toLowerCase();
             const cat = document.getElementById('filter-item-category').value;
+            const expStatusFilter = document.getElementById('filter-item-exp-status')?.value || 'ALL';
+
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
 
             let filtered = state.items.filter(i => {
                 const matchKw = i.code.toLowerCase().includes(kw) || i.name.toLowerCase().includes(kw);
                 const matchCat = cat === 'ALL' || i.category === cat;
-                return matchKw && matchCat;
+
+                let matchStatus = true;
+                if (expStatusFilter === 'LOW_STOCK') {
+                    matchStatus = Number(i.stock) <= Number(i.min_reorder);
+                } else if (expStatusFilter === 'EXPIRING') {
+                    if (!i.exp_date) {
+                        matchStatus = false;
+                    } else {
+                        const diffDays = Math.ceil((new Date(i.exp_date) - today) / (1000 * 60 * 60 * 24));
+                        matchStatus = diffDays >= 0 && diffDays <= 60;
+                    }
+                } else if (expStatusFilter === 'EXPIRED') {
+                    if (!i.exp_date) {
+                        matchStatus = false;
+                    } else {
+                        const diffDays = Math.ceil((new Date(i.exp_date) - today) / (1000 * 60 * 60 * 24));
+                        matchStatus = diffDays < 0;
+                    }
+                }
+
+                return matchKw && matchCat && matchStatus;
             });
 
             const tbody = document.getElementById('inventory-tbody');
             if (filtered.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="9" class="text-center py-8 text-slate-400">ไม่พบรายการพัสดุที่ตรงตามเงื่อนไข</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="10" class="text-center py-8 text-slate-400">ไม่พบรายการพัสดุที่ตรงตามเงื่อนไข</td></tr>`;
                 return;
             }
 
@@ -1586,6 +2118,7 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
                         <td class="py-3 px-4 text-center font-bold ${isLow ? 'text-red-600' : 'text-slate-700'}">${item.stock}</td>
                         <td class="py-3 px-4 text-center text-slate-500">${item.unit}</td>
                         <td class="py-3 px-4 text-center text-slate-500">${item.min_reorder}</td>
+                        <td class="py-3 px-4 text-center">${formatExpDate(item.exp_date)}</td>
                         <td class="py-3 px-4 text-center">
                             ${isLow ? `
                                 <span class="px-2.5 py-1 rounded-full text-[11px] font-semibold bg-red-100 text-red-700">
@@ -1625,6 +2158,8 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
 
             form.reset();
             document.getElementById('item-id').value = '';
+            const expInput = document.getElementById('item-exp-date');
+            if (expInput) expInput.value = '';
 
             if (itemId) {
                 const found = state.items.find(x => x.id === itemId);
@@ -1637,6 +2172,7 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
                     document.getElementById('item-stock').value = found.stock;
                     document.getElementById('item-unit').value = found.unit;
                     document.getElementById('item-min').value = found.min_reorder;
+                    if (expInput) expInput.value = found.exp_date || '';
                     document.getElementById('item-image').value = found.image_url || '';
                 }
             } else {
@@ -1655,9 +2191,10 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
             const stock = Number(document.getElementById('item-stock').value);
             const unit = document.getElementById('item-unit').value.trim();
             const min_reorder = Number(document.getElementById('item-min').value);
+            const exp_date = document.getElementById('item-exp-date')?.value || '';
             const image_url = document.getElementById('item-image').value.trim();
 
-            const itemData = { code, name, category, stock, unit, min_reorder, image_url };
+            const itemData = { code, name, category, stock, unit, min_reorder, exp_date, image_url };
 
             showLoader('กำลังบันทึกข้อมูล...');
 
@@ -2039,6 +2576,316 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
             }
         }
 
+        // --- GOODS RECEIVING (บันทึกตรวจรับพัสดุ) LOGIC ---
+        let tempReceivingFile = null;
+
+        function populateReceivingItemDropdown() {
+            const select = document.getElementById('rec-item-id');
+            const categoryFilter = document.getElementById('rec-category-filter')?.value || 'ALL';
+            if (!select) return;
+
+            let filteredItems = state.items;
+            if (categoryFilter !== 'ALL') {
+                filteredItems = state.items.filter(i => i.category === categoryFilter);
+            }
+
+            select.innerHTML = `<option value="">-- เลือกรายการพัสดุ --</option>` +
+                filteredItems.map(i => `<option value="${i.id}">${i.code} - ${i.name} [คงเหลือ: ${i.stock} ${i.unit}]</option>`).join('');
+            
+            const staffSelect = document.getElementById('rec-staff-name');
+            if (staffSelect && state.currentUser && state.currentUser.full_name) {
+                if ([...staffSelect.options].some(o => o.value === state.currentUser.full_name)) {
+                    staffSelect.value = state.currentUser.full_name;
+                }
+            }
+
+            const recDateInput = document.getElementById('rec-date');
+            if (recDateInput && !recDateInput.value) {
+                recDateInput.value = new Date().toISOString().split('T')[0];
+            }
+        }
+
+        function handleReceivingItemSelection() {
+            const select = document.getElementById('rec-item-id');
+            const unitInput = document.getElementById('rec-unit-display');
+            if (!select || !unitInput) return;
+
+            const selectedItem = state.items.find(i => String(i.id) === String(select.value));
+            if (selectedItem) {
+                unitInput.value = selectedItem.unit || 'หน่วย';
+            } else {
+                unitInput.value = '';
+            }
+        }
+
+        function handleReceivingFileSelect(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            if (file.size > 8 * 1024 * 1024) {
+                showToast("ไฟล์มีขนาดใหญ่เกินไป", "กรุณาเลือกไฟล์รูปหรือ PDF ที่มีขนาดไม่เกิน 8 MB", "rose");
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const dataUrl = event.target.result;
+                const isPdf = file.type === 'application/pdf' || file.name.endsWith('.pdf');
+                
+                tempReceivingFile = {
+                    name: file.name,
+                    size: (file.size / 1024).toFixed(1) + ' KB',
+                    type: isPdf ? 'pdf' : 'image',
+                    dataUrl: dataUrl
+                };
+
+                // Render Preview UI
+                const promptBox = document.getElementById('rec-upload-prompt');
+                const previewContainer = document.getElementById('rec-file-preview-container');
+                const nameEl = document.getElementById('rec-file-name');
+                const sizeEl = document.getElementById('rec-file-size');
+                const thumbBox = document.getElementById('rec-thumb-box');
+
+                if (promptBox) promptBox.classList.add('hidden');
+                if (previewContainer) previewContainer.classList.remove('hidden');
+                if (nameEl) nameEl.textContent = file.name;
+                if (sizeEl) sizeEl.textContent = tempReceivingFile.size;
+
+                if (thumbBox) {
+                    if (!isPdf) {
+                        thumbBox.innerHTML = `<img src="${dataUrl}" class="w-full h-full object-cover">`;
+                    } else {
+                        thumbBox.innerHTML = `<i data-lucide="file-text" class="w-6 h-6 text-rose-600"></i>`;
+                        lucide.createIcons();
+                    }
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function clearReceivingFile() {
+            tempReceivingFile = null;
+            const fileInput = document.getElementById('rec-file-input');
+            if (fileInput) fileInput.value = '';
+
+            const promptBox = document.getElementById('rec-upload-prompt');
+            const previewContainer = document.getElementById('rec-file-preview-container');
+            if (promptBox) promptBox.classList.remove('hidden');
+            if (previewContainer) previewContainer.classList.add('hidden');
+        }
+
+        function submitReceivingForm(e) {
+            e.preventDefault();
+            const itemId = document.getElementById('rec-item-id').value;
+            const qty = Number(document.getElementById('rec-qty').value);
+            const receiveDate = document.getElementById('rec-date').value;
+            const expDate = document.getElementById('rec-exp-date').value;
+            const poNumber = document.getElementById('rec-po-number').value.trim();
+            const supplier = document.getElementById('rec-supplier').value.trim();
+            const receiver = document.getElementById('rec-staff-name').value;
+            const notes = document.getElementById('rec-notes').value.trim();
+
+            if (!itemId || !qty || qty <= 0) {
+                showToast("ข้อมูลไม่ครบถ้วน", "กรุณาเลือกรายการพัสดุและระบุจำนวนที่ตรวจรับ", "amber");
+                return;
+            }
+
+            const item = state.items.find(i => String(i.id) === String(itemId));
+            if (!item) {
+                showToast("ข้อผิดพลาด", "ไม่พบข้อมูลพัสดุที่เลือก", "rose");
+                return;
+            }
+
+            // Increase Item Stock
+            const oldStock = Number(item.stock);
+            item.stock = oldStock + qty;
+            if (expDate) {
+                item.exp_date = expDate;
+            }
+
+            // Create Receiving Record
+            const newRecord = {
+                id: 'rc_' + Date.now(),
+                item_id: item.id,
+                item_code: item.code,
+                item_name: item.name,
+                category: item.category,
+                qty: qty,
+                unit: item.unit,
+                po_number: poNumber || '-',
+                supplier: supplier || '-',
+                receive_date: receiveDate,
+                exp_date: expDate || '',
+                receiver: receiver || (state.currentUser?.full_name || 'เจ้าหน้าที่'),
+                notes: notes || 'ตรวจรับเรียบร้อย',
+                attachment_name: tempReceivingFile ? tempReceivingFile.name : '',
+                attachment_type: tempReceivingFile ? tempReceivingFile.type : '',
+                attachment_data: tempReceivingFile ? tempReceivingFile.dataUrl : ''
+            };
+
+            if (!state.receivings) state.receivings = [];
+            state.receivings.unshift(newRecord);
+
+            // Persist Storage
+            localStorage.setItem('bb_inventory_items', JSON.stringify(state.items));
+            localStorage.setItem('bb_receivings', JSON.stringify(state.receivings));
+
+            // Sync with Supabase if online
+            if (state.supabase && !state.isDemoMode) {
+                state.supabase.from('inventory').update({ stock: item.stock, exp_date: item.exp_date }).eq('id', item.id);
+            }
+
+            showToast("ตรวจรับพัสดุสำเร็จ", `เพิ่มสต็อก ${item.name} +${qty} ${item.unit} (คงเหลือรวม: ${item.stock} ${item.unit})`, "emerald");
+
+            // Reset form
+            document.getElementById('form-receiving').reset();
+            clearReceivingFile();
+            populateReceivingItemDropdown();
+            renderReceivingView();
+        }
+
+        function renderReceivingView() {
+            if (!state.receivings) state.receivings = [];
+
+            // Stats
+            const totalRecs = state.receivings.length;
+            const currentMonth = new Date().toISOString().slice(0, 7);
+            const monthRecs = state.receivings.filter(r => (r.receive_date || '').startsWith(currentMonth)).length;
+            const docRecs = state.receivings.filter(r => !!r.attachment_data || !!r.attachment_name).length;
+
+            const elTotal = document.getElementById('rec-stat-total');
+            const elMonth = document.getElementById('rec-stat-month');
+            const elDocs = document.getElementById('rec-stat-docs');
+            if (elTotal) elTotal.textContent = `${totalRecs} รายการ`;
+            if (elMonth) elMonth.textContent = `${monthRecs} รายการ`;
+            if (elDocs) elDocs.textContent = `${docRecs} รายการ`;
+
+            renderReceivingHistoryTable();
+        }
+
+        function renderReceivingHistoryTable() {
+            const tbody = document.getElementById('rec-history-tbody');
+            const search = (document.getElementById('rec-search-input')?.value || '').toLowerCase().trim();
+            if (!tbody) return;
+
+            let records = state.receivings || [];
+            if (search) {
+                records = records.filter(r => 
+                    (r.item_name || '').toLowerCase().includes(search) ||
+                    (r.item_code || '').toLowerCase().includes(search) ||
+                    (r.po_number || '').toLowerCase().includes(search) ||
+                    (r.supplier || '').toLowerCase().includes(search) ||
+                    (r.receiver || '').toLowerCase().includes(search)
+                );
+            }
+
+            if (records.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="8" class="py-8 text-center text-slate-400 text-xs">
+                            <i data-lucide="package-open" class="w-8 h-8 mx-auto mb-2 opacity-50"></i>
+                            ยังไม่มีประวัติการตรวจรับพัสดุในระบบ
+                        </td>
+                    </tr>
+                `;
+                lucide.createIcons();
+                return;
+            }
+
+            tbody.innerHTML = records.map(r => {
+                const hasDoc = !!r.attachment_data || !!r.attachment_name;
+                const isPdf = r.attachment_type === 'pdf' || (r.attachment_name || '').endsWith('.pdf');
+                
+                return `
+                    <tr class="hover:bg-slate-50 transition">
+                        <td class="py-3 px-3 font-medium text-slate-700 whitespace-nowrap">${r.receive_date || '-'}</td>
+                        <td class="py-3 px-3">
+                            <div class="font-bold text-slate-800 leading-snug">${r.item_name}</div>
+                            <div class="text-[10px] font-mono text-rose-700 font-semibold">${r.item_code}</div>
+                        </td>
+                        <td class="py-3 px-3 text-center whitespace-nowrap">
+                            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800">
+                                +${r.qty} ${r.unit}
+                            </span>
+                        </td>
+                        <td class="py-3 px-3 font-mono text-slate-700 font-semibold whitespace-nowrap">${r.po_number || '-'}</td>
+                        <td class="py-3 px-3 text-slate-600 max-w-[150px] truncate" title="${r.supplier}">${r.supplier || '-'}</td>
+                        <td class="py-3 px-3 text-slate-700 whitespace-nowrap">${r.receiver || '-'}</td>
+                        <td class="py-3 px-3 text-center whitespace-nowrap">
+                            ${hasDoc ? `
+                                <button onclick="openDocViewer('${r.id}')" class="px-2.5 py-1 bg-rose-50 hover:bg-rose-100 text-[#b91c1c] rounded-lg text-xs font-semibold transition inline-flex items-center gap-1 border border-rose-200 cursor-pointer" title="ดูเอกสาร/รูปถ่าย">
+                                    <i data-lucide="${isPdf ? 'file-text' : 'image'}" class="w-3.5 h-3.5"></i>
+                                    <span>${isPdf ? 'ไฟล์ PDF' : 'รูปถ่าย'}</span>
+                                </button>
+                            ` : `<span class="text-slate-300 text-[11px]">-</span>`}
+                        </td>
+                        <td class="py-3 px-3 text-center whitespace-nowrap">
+                            <div class="flex items-center justify-center gap-1">
+                                <button onclick="openDocViewer('${r.id}')" title="ดูรายละเอียด" class="p-1.5 text-slate-500 hover:text-brand-600 hover:bg-slate-100 rounded-lg transition cursor-pointer">
+                                    <i data-lucide="eye" class="w-4 h-4"></i>
+                                </button>
+                                <button onclick="deleteReceivingRecord('${r.id}')" title="ลบประวัติ" class="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition cursor-pointer">
+                                    <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+            lucide.createIcons();
+        }
+
+        function openDocViewer(recordId) {
+            const record = (state.receivings || []).find(r => String(r.id) === String(recordId));
+            if (!record) return;
+
+            document.getElementById('doc-view-po').textContent = record.po_number || '-';
+            document.getElementById('doc-view-date').textContent = record.receive_date || '-';
+            document.getElementById('doc-view-supplier').textContent = record.supplier || '-';
+            document.getElementById('doc-view-receiver').textContent = record.receiver || '-';
+            document.getElementById('doc-view-notes').textContent = record.notes || 'ไม่มีหมายเหตุ';
+            document.getElementById('doc-viewer-title').textContent = `เอกสารตรวจรับ: ${record.item_name}`;
+
+            const imgEl = document.getElementById('doc-viewer-img');
+            const pdfEl = document.getElementById('doc-viewer-pdf');
+            const placeholderEl = document.getElementById('doc-viewer-placeholder');
+            const downloadLink = document.getElementById('doc-download-link');
+
+            imgEl.classList.add('hidden');
+            pdfEl.classList.add('hidden');
+            placeholderEl.classList.add('hidden');
+            downloadLink.classList.add('hidden');
+
+            if (record.attachment_data) {
+                const isPdf = record.attachment_type === 'pdf' || (record.attachment_name || '').endsWith('.pdf');
+                if (!isPdf) {
+                    imgEl.src = record.attachment_data;
+                    imgEl.classList.remove('hidden');
+                } else {
+                    pdfEl.src = record.attachment_data;
+                    pdfEl.classList.remove('hidden');
+                }
+
+                downloadLink.href = record.attachment_data;
+                downloadLink.download = record.attachment_name || `ตรวจรับ_${record.po_number || record.id}`;
+                downloadLink.classList.remove('hidden');
+                downloadLink.classList.add('flex');
+            } else {
+                placeholderEl.classList.remove('hidden');
+            }
+
+            openModal('modal-doc-viewer');
+            lucide.createIcons();
+        }
+
+        function deleteReceivingRecord(recordId) {
+            if (!confirm('คุณต้องการลบประวัติการตรวจรับรายการนี้ใช่หรือไม่?')) return;
+            state.receivings = (state.receivings || []).filter(r => String(r.id) !== String(recordId));
+            localStorage.setItem('bb_receivings', JSON.stringify(state.receivings));
+            showToast("ลบรายการแล้ว", "ลบประวัติการตรวจรับเรียบร้อยแล้ว", "blue");
+            renderReceivingView();
+        }
+
         // --- MONTHLY & FISCAL YEAR SUMMARY REPORT VIEW (A4 PRINTABLE) ---
         let currentReportMode = 'monthly';
 
@@ -2195,6 +3042,7 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
                 'จำนวนคงเหลือ': i.stock,
                 'หน่วยนับ': i.unit,
                 'จุดสั่งเพิ่ม (Min)': i.min_reorder,
+                'วันหมดอายุ': i.exp_date || '',
                 'สถานะ': Number(i.stock) <= Number(i.min_reorder) ? 'ต้องสั่งเบิกเพิ่ม' : 'ปกติ'
             }));
 
@@ -2230,12 +3078,14 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
                             const stock = Number(row['จำนวนคงเหลือ'] || row['Stock'] || 0);
                             const unit = row['หน่วยนับ'] || row['Unit'] || 'ชิ้น';
                             const min_reorder = Number(row['จุดสั่งเพิ่ม (Min)'] || row['Min'] || 5);
+                            const exp_date = row['วันหมดอายุ'] || row['ExpDate'] || row['ExpirationDate'] || '';
 
                             const existing = state.items.find(x => x.code === code);
                             if (existing) {
                                 existing.stock += stock;
+                                if (exp_date) existing.exp_date = exp_date;
                             } else {
-                                state.items.push({ id: Date.now().toString() + Math.random(), code, name, category, stock, unit, min_reorder, image_url: '' });
+                                state.items.push({ id: Date.now().toString() + Math.random(), code, name, category, stock, unit, min_reorder, exp_date, image_url: '' });
                             }
                         });
 
