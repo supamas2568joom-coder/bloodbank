@@ -1549,6 +1549,7 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
         ];
 
         const DEFAULT_LINE_TOKEN = "cAgT8iX9MlwpiPFGV7QnIvHvN93Kw3eEvFw+2MMT1Yr1zOQq9NNgX5YyRx5M+fjHXV7K/830a0A5cGaLecHIa/9WhRgRtbat+dYpnYQGhxuaNM0dMkbILaM3tlhJoVmPuM2i56ULu8jLt+KX8csTEgdB04t89/1O/w1cDnyilFU=";
+        const DEFAULT_LINE_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbw4_K0QPPqfw-GGEs_PXyKOj5-mosZ7rAW5AnjsGUCtXCRILSJWeUkuk7-P9ksELzSALg/exec";
 
         // State Store
         let state = {
@@ -1561,6 +1562,7 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
             activeView: 'landing',
             isDemoMode: true,
             lineToken: localStorage.getItem('bb_line_token') || DEFAULT_LINE_TOKEN,
+            lineWebhookUrl: localStorage.getItem('bb_line_webhook_url') || DEFAULT_LINE_WEBHOOK_URL,
             lineAutoNotify: localStorage.getItem('bb_line_auto_notify') !== 'false'
         };
 
@@ -1595,13 +1597,16 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
             if (!localStorage.getItem('bb_line_token')) {
                 localStorage.setItem('bb_line_token', DEFAULT_LINE_TOKEN);
             }
+            if (!localStorage.getItem('bb_line_webhook_url') || localStorage.getItem('bb_line_webhook_url') === '') {
+                localStorage.setItem('bb_line_webhook_url', DEFAULT_LINE_WEBHOOK_URL);
+            }
 
             state.items = JSON.parse(localStorage.getItem('bb_inventory_items'));
             state.requisitions = JSON.parse(localStorage.getItem('bb_requisitions'));
             state.receivings = JSON.parse(localStorage.getItem('bb_receivings'));
             state.users = JSON.parse(localStorage.getItem('bb_users'));
             state.lineToken = localStorage.getItem('bb_line_token') || DEFAULT_LINE_TOKEN;
-            state.lineWebhookUrl = localStorage.getItem('bb_line_webhook_url') || '';
+            state.lineWebhookUrl = localStorage.getItem('bb_line_webhook_url') || DEFAULT_LINE_WEBHOOK_URL;
             state.lineAutoNotify = localStorage.getItem('bb_line_auto_notify') !== 'false';
         }
 
@@ -1611,7 +1616,7 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
             const webhookInput = document.getElementById('line-webhook-input');
             const autoCheck = document.getElementById('line-auto-notify-check');
             if (tokenInput) tokenInput.value = state.lineToken || DEFAULT_LINE_TOKEN;
-            if (webhookInput) webhookInput.value = state.lineWebhookUrl || '';
+            if (webhookInput) webhookInput.value = state.lineWebhookUrl || DEFAULT_LINE_WEBHOOK_URL;
             if (autoCheck) autoCheck.checked = state.lineAutoNotify !== false;
             openModal('modal-line-config');
         }
@@ -1625,7 +1630,7 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
             const webhookInput = document.getElementById('line-webhook-input');
             const autoCheck = document.getElementById('line-auto-notify-check');
             const newToken = tokenInput ? tokenInput.value.trim() : DEFAULT_LINE_TOKEN;
-            const newWebhook = webhookInput ? webhookInput.value.trim() : '';
+            const newWebhook = webhookInput ? (webhookInput.value.trim() || DEFAULT_LINE_WEBHOOK_URL) : DEFAULT_LINE_WEBHOOK_URL;
             state.lineToken = newToken;
             state.lineWebhookUrl = newWebhook;
             state.lineAutoNotify = autoCheck ? autoCheck.checked : true;
@@ -1634,11 +1639,11 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
             localStorage.setItem('bb_line_webhook_url', state.lineWebhookUrl);
             localStorage.setItem('bb_line_auto_notify', state.lineAutoNotify);
 
-            showToast("บันทึกการตั้งค่า LINE", "บันทึก Token และรูปแบบการแจ้งเตือนเรียบร้อยแล้ว", "emerald");
+            showToast("บันทึกการตั้งค่า LINE", "บันทึก Token และ Proxy Webhook เรียบร้อยแล้ว", "emerald");
             closeModal('modal-line-config');
         }
 
-        async function fetchWithTimeout(url, options = {}, timeoutMs = 3500) {
+        async function fetchWithTimeout(url, options = {}, timeoutMs = 4500) {
             const controller = new AbortController();
             const timer = setTimeout(() => controller.abort(), timeoutMs);
             try {
@@ -1656,23 +1661,36 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
 
         async function sendLineNotification(messageText, customToken = null) {
             const token = customToken || state.lineToken || DEFAULT_LINE_TOKEN;
+            const webhookUrl = state.lineWebhookUrl || DEFAULT_LINE_WEBHOOK_URL;
             if (!token) {
                 throw new Error("ยังไม่ได้กำหนด LINE Access Token");
             }
 
-            // 1. Custom Webhook / Apps Script Proxy (Recommended for GitHub Pages / External host)
-            if (state.lineWebhookUrl) {
+            // 1. Google Apps Script / Webhook Proxy (Primary for GitHub Pages static site)
+            if (webhookUrl) {
+                // 1a. Try POST (text/plain avoids CORS preflight)
                 try {
-                    const resWebhook = await fetchWithTimeout(state.lineWebhookUrl, {
+                    const resWebhook = await fetchWithTimeout(webhookUrl, {
                         method: "POST",
-                        headers: { "Content-Type": "application/json" },
+                        headers: { "Content-Type": "text/plain;charset=utf-8" },
                         body: JSON.stringify({ token, message: messageText })
                     }, 5000);
                     if (resWebhook.ok) {
-                        return { success: true, method: 'Custom Webhook Proxy' };
+                        return { success: true, method: 'Webhook Proxy POST' };
                     }
-                } catch (eWebhook) {
-                    console.warn("Custom webhook proxy failed:", eWebhook);
+                } catch (ePost) {
+                    console.warn("Webhook POST failed, trying GET fallback...", ePost);
+                }
+
+                // 1b. Try GET query params (100% bypasses CORS preflight)
+                try {
+                    const getUrl = `${webhookUrl}?token=${encodeURIComponent(token)}&message=${encodeURIComponent(messageText)}`;
+                    const resGet = await fetchWithTimeout(getUrl, { method: "GET" }, 5000);
+                    if (resGet.ok) {
+                        return { success: true, method: 'Webhook Proxy GET' };
+                    }
+                } catch (eGet) {
+                    console.warn("Webhook GET fallback failed...", eGet);
                 }
             }
 
