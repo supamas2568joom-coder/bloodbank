@@ -123,7 +123,7 @@
                 </div>
                 <div>
                     <h1 class="text-base sm:text-lg font-bold text-slate-800 leading-tight">ระบบคลังพัสดุงานธนาคารโลหิต โรงพยาบาลมะเร็งลำปาง</h1>
-                    <p class="text-[10px] sm:text-xs text-slate-400 font-normal">วัสดุสำนักงาน, วัสดุงานบ้านงานครัว, น้ำยาและวัสดุทางการแพทย์, ยาและเวชภัณฑ์ที่ไม่ใช่ยา</p>
+                    <p class="hidden sm:block text-[10px] sm:text-xs text-slate-400 font-normal truncate max-w-[280px] md:max-w-none">วัสดุสำนักงาน, วัสดุงานบ้านงานครัว, น้ำยาและวัสดุทางการแพทย์, ยาและเวชภัณฑ์ที่ไม่ใช่ยา</p>
                 </div>
             </div>
 
@@ -204,6 +204,26 @@
             </div>
         </aside>
 
+        <!-- Mobile Bottom Navigation Bar (Smartphones) -->
+        <nav id="mobile-bottom-nav" class="hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-slate-200 z-40 px-2 py-1.5 justify-around items-center shadow-lg md:hidden">
+            <button onclick="navigatePage('dashboard')" class="mobile-nav-btn flex flex-col items-center gap-0.5 text-[10px] font-medium text-slate-500 py-1 px-2.5 rounded-lg transition" data-view="dashboard">
+                <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+                <span>แดชบอร์ด</span>
+            </button>
+            <button onclick="navigatePage('inventory')" class="mobile-nav-btn flex flex-col items-center gap-0.5 text-[10px] font-medium text-slate-500 py-1 px-2.5 rounded-lg transition" data-view="inventory">
+                <i data-lucide="boxes" class="w-4 h-4"></i>
+                <span>จัดการคลัง</span>
+            </button>
+            <button onclick="navigatePage('requisition')" class="mobile-nav-btn flex flex-col items-center gap-0.5 text-[10px] font-medium text-slate-500 py-1 px-2.5 rounded-lg transition" data-view="requisition">
+                <i data-lucide="clipboard-pen-line" class="w-4 h-4"></i>
+                <span>เบิก-จ่าย</span>
+            </button>
+            <button onclick="openReportMode('monthly')" class="mobile-nav-btn flex flex-col items-center gap-0.5 text-[10px] font-medium text-slate-500 py-1 px-2.5 rounded-lg transition" data-view="report">
+                <i data-lucide="file-text" class="w-4 h-4"></i>
+                <span>รายงาน</span>
+            </button>
+        </nav>
+
         <!-- Main Content Area -->
         <main class="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto max-w-full">
 
@@ -211,20 +231,17 @@
             <section id="view-landing" class="space-y-6">
                 <!-- Hero Banner -->
                 <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand-700 via-brand-600 to-rose-500 text-white p-6 sm:p-10 shadow-xl">
-                    <div class="relative z-10 max-w-2xl">
+                    <div class="relative z-10 max-w-4xl">
                         <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-white/20 backdrop-blur-md mb-3">
                             <i data-lucide="shield" class="w-3.5 h-3.5"></i> งานธนาคารโลหิต โรงพยาบาลมะเร็งลำปาง
                         </span>
-                        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-snug">
+                        <h2 class="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-extrabold tracking-tight leading-tight sm:whitespace-nowrap">
                             ระบบควบคุมวัสดุและเวชภัณฑ์ งานธนาคารโลหิต
                         </h2>
                         <p class="mt-2.5 text-xs sm:text-sm text-rose-100 font-light leading-relaxed">
                             ควบคุมสต็อกคงเหลือแบบเรียลไทม์ ตรวจสอบและบันทึกการเบิกจ่ายของเจ้าหน้าที่ พร้อมแจ้งเตือนจุดสั่งซื้อเพิ่ม (Reorder Point) และส่งออกรายงานประจำเดือน
                         </p>
                         <div class="mt-6 flex flex-wrap items-center gap-3">
-                            <button onclick="navigatePage('requisition')" class="px-5 py-2.5 rounded-xl bg-white text-brand-700 hover:bg-rose-50 font-semibold text-xs sm:text-sm shadow-md transition flex items-center gap-2">
-                                <i data-lucide="clipboard-pen-line" class="w-4 h-4"></i> ทำรายการขอเบิกพัสดุ
-                            </button>
                             <button onclick="navigatePage('login')" class="px-4 py-2.5 rounded-xl bg-black/20 hover:bg-black/30 text-white font-medium text-xs sm:text-sm backdrop-blur-sm border border-white/20 transition flex items-center gap-2">
                                 <i data-lucide="key" class="w-4 h-4"></i> เข้าสู่ระบบเจ้าหน้าที่
                             </button>
@@ -276,7 +293,7 @@
                             <i data-lucide="flask-conical" class="w-5 h-5"></i>
                         </div>
                         <div>
-                            <p class="text-[10px] sm:text-[11px] font-medium text-slate-400">น้ำยา & วัสดุแพทย์</p>
+                            <p class="text-[10px] sm:text-[11px] font-medium text-slate-400">น้ำยาและวัสดุทางการแพทย์</p>
                             <h3 class="text-base sm:text-xl font-bold text-slate-800" id="stat-landing-reagent-med">0</h3>
                         </div>
                     </div>
@@ -285,7 +302,7 @@
                             <i data-lucide="pill" class="w-5 h-5"></i>
                         </div>
                         <div>
-                            <p class="text-[10px] sm:text-[11px] font-medium text-slate-400">ยา & เวชภัณฑ์ไม่สั่ง</p>
+                            <p class="text-[10px] sm:text-[11px] font-medium text-slate-400">ยาและเวชภัณฑ์ที่ไม่ใช่ยา</p>
                             <h3 class="text-base sm:text-xl font-bold text-slate-800" id="stat-landing-pharma-med">0</h3>
                         </div>
                     </div>
@@ -1154,14 +1171,27 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
 
         function updateSidebarVisibility() {
             const sidebar = document.getElementById('desktop-sidebar');
-            if (!sidebar) return;
+            const mobileBottomNav = document.getElementById('mobile-bottom-nav');
             const hideOnViews = ['landing', 'login'];
+
             if (state.currentUser && !hideOnViews.includes(state.activeView)) {
-                sidebar.classList.remove('hidden');
-                sidebar.classList.add('md:flex');
+                if (sidebar) {
+                    sidebar.classList.remove('hidden');
+                    sidebar.classList.add('md:flex');
+                }
+                if (mobileBottomNav) {
+                    mobileBottomNav.classList.remove('hidden');
+                    mobileBottomNav.classList.add('flex');
+                }
             } else {
-                sidebar.classList.add('hidden');
-                sidebar.classList.remove('md:flex');
+                if (sidebar) {
+                    sidebar.classList.add('hidden');
+                    sidebar.classList.remove('md:flex');
+                }
+                if (mobileBottomNav) {
+                    mobileBottomNav.classList.add('hidden');
+                    mobileBottomNav.classList.remove('flex');
+                }
             }
         }
 
@@ -1255,7 +1285,7 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
 
             updateSidebarVisibility();
 
-            // Update Active Sidebar Highlight
+            // Update Active Sidebar Highlight (Desktop & Mobile)
             document.querySelectorAll('.side-nav-link').forEach(btn => {
                 if (btn.dataset.view === viewId) {
                     btn.classList.add('bg-brand-50', 'text-brand-700', 'font-semibold');
@@ -1263,6 +1293,17 @@ CREATE POLICY "Allow public write users" ON public.users FOR ALL USING (true);
                 } else {
                     btn.classList.remove('bg-brand-50', 'text-brand-700', 'font-semibold');
                     btn.classList.add('text-slate-600');
+                }
+            });
+
+            document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
+                const activeMode = viewId.startsWith('report') ? 'report' : viewId;
+                if (btn.dataset.view === activeMode) {
+                    btn.classList.add('text-brand-600', 'font-bold');
+                    btn.classList.remove('text-slate-500');
+                } else {
+                    btn.classList.remove('text-brand-600', 'font-bold');
+                    btn.classList.add('text-slate-500');
                 }
             });
 
