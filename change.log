@@ -1,3 +1,2 @@
 SUPABASE_URL: "https://vagbqgkgkswujpwydpuv.supabase.co",
 SUPABASE_ANON_KEY: "sb_publishable_48_glZEdAmm2_Yu9GSqGqA_pfoOD-tm",
-const PROXY_URL = "https://script.google.com/macros/s/AKfycbxFtV16rTkCsEDtBAzbME4z1QuOcwAKAPMIIZcMACJ1JWU5cDaGAofUMQVQTXOXyuwP4Q/exec";
